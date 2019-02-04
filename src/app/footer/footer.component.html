@@ -1,0 +1,81 @@
+<!-- Start page-footer
+=======================================-->
+<footer class="footer" id="footer--custom">
+  <div class="main-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-4">
+          <div class="foot-widget">
+            <a class="logo--link logo" routerLink="/{{language['LANGUAGE_CODE']}}">
+              <img class="img-fluid" *ngIf="logo$ | async as logo" [src]="logo" alt="logo">
+            </a>
+            <div class="foot-widget-content">
+              <!--<p>-->
+                <!--Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s-->
+              <!--</p>-->
+            </div>
+          </div><!--End Foot-widget-->
+        </div><!--End Col-->
+        <div class="col-lg-3 col-md-4">
+          <div class="foot-widget">
+            <h3 class="title h3--custom">{{language['quickLinks']}}</h3>
+            <div class="foot-widget-content">
+              <ul class="links-list">
+                <li>
+                  <a class="link--footer" routerLink="/{{language['LANGUAGE_CODE']}}">{{language['home']}}</a>
+                </li>
+                <li>
+                  <a class="link--footer" [routerLink]="['/', language['LANGUAGE_CODE'], 'contact-us']">{{language['contactUs']}}</a>
+                </li>
+                <li *ngFor="let staticPage of staticPages">
+                  <a class="link--footer" [routerLink]="['/', language['LANGUAGE_CODE'], 'page', staticPage.code]">
+                    {{staticPage | translate:'name'}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div><!--End Foot-widget-->
+        </div><!--End col-->
+        <div class="col-lg-3 col-md-4">
+          <div class="foot-widget">
+            <h3 class="title h3--custom">{{language['newsletter']}}</h3>
+            <div class="foot-widget-content">
+              <form class="subscribe-form" [formGroup]="subscribeForm" (submit)="submitEmail()">
+                <input class="form-control" type="email" placeholder="{{language['email']}}" formControlName="email">
+                <button class="subscribe-btn" type="submit" (click)="submitEmail()"><i class="fa fa-envelope"></i></button>
+              </form>
+              <h3 class="title h3--custom">{{language['followUs']}}</h3>
+              <ul class="social-list list-unstyled" *ngIf="(store$ | async) as store">
+                <li *ngIf="store.facebookLink">
+                  <a [href]="store.facebookLink" target="_blank"><i class="fa fa-facebook-f"></i></a>
+                </li>
+                <li *ngIf="store.twitterLink">
+                  <a [href]="store.twitterLink" target="_blank"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li *ngIf="store.googleLink">
+                  <a [href]="store.googleLink" target="_blank"><i class="fa fa-google-plus"></i></a>
+                </li>
+                <li *ngIf="store.instagramLink">
+                  <a [href]="store.instagramLink" target="_blank"><i class="fa fa-instagram"></i></a>
+                </li>
+              </ul><!--End social list-->
+            </div>
+          </div><!--End Foot-widget-->
+        </div><!--End col-->
+      </div><!-- end Row-->
+    </div><!--End Container-->
+  </div><!--End main-footer-->
+  <div class="footer-copyright">
+    <div class="container">
+      <div class="float-left">
+        <p *ngIf="store$ | async as store">2018 {{store.name}} {{language['AllRightsReserved']}}</p>
+      </div>
+      <div class="float-right">
+        <p>
+          {{language['poweredBy']}}
+          <a class="link--footer" href="http://zvendo.com"> {{language['zvendo']}} {{version}}</a>
+        </p>
+      </div>
+    </div><!--End Container-->
+  </div><!--End Footer-copy-right-->
+</footer><!--End Footer-->

@@ -1,0 +1,118 @@
+@import '../../variables';
+
+:host {
+  .hr-parent {
+    display: flex;
+    flex-flow: row;
+    .first-hr {
+      width: 100px;
+    }
+    .second-hr {
+      width: calc(100% - 110px);
+      margin-left: 10px;
+      [dir=rtl] & {
+        margin-left: 0;
+        margin-right: 10px;
+      }
+    }
+  }
+  h6 {
+    text-transform: uppercase;
+  }
+  hr {
+    border-top-color: $hr-color;
+  }
+  .link-all-products{
+    font-size: 19px;
+  }
+  .bkg-home {
+    background-color: $background-color;
+    padding: 0 0 100px;
+    .title{
+      a{
+        font-size: 19px;
+      }
+    }
+  }
+  //style featured product
+  .feather_products {
+    hr.blue {
+      border-top-color: $orange-color;
+    }
+    h6 {
+      font-size: 21px;
+      a {
+        text-decoration: none;
+        float: right;
+        clear: both;
+        color: $orange-color;
+        cursor: pointer;
+        font-size: 20px;
+        [dir=rtl] & {
+          float: left;
+        }
+      }
+    }
+  }
+  //style best sellers
+  .best_sellers {
+    margin-top: 20px;
+    hr.blue {
+      border-top-color: $second-color;
+    }
+    h6 {
+      font-size: 21px;
+      a {
+        text-decoration: none;
+        float: right;
+        clear: both;
+        color: $orange-color;
+        cursor: pointer;
+        font-size: 20px;
+        [dir=rtl] & {
+          float: left;
+        }
+      }
+    }
+  }
+
+  .banner {
+    margin: 30px 0;
+  }
+
+  @media(max-width: 767px) {
+    .feather_products {
+      h6 {
+        font-size: 18px !important
+      }
+    }
+  }
+
+  .item{
+    cursor: pointer;
+  }
+
+  //style owl-carousel
+  ::ng-deep {
+    .carousel.slide {
+      //@include media-breakpoint-down(sm) {
+      margin-bottom: $spacer * 2;
+      //}
+    }
+    .carousel-indicators {
+      bottom: -15px;
+      transform: translateY(100%);
+      margin: 0;
+      //@include media-breakpoint-down(sm) {
+      //  padding-top: $spacer;
+      //}
+    }
+    .right.carousel-control, .left.carousel-control {
+      display: none;
+    }
+  }
+}
+
+
+
+

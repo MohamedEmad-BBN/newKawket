@@ -1,0 +1,75 @@
+<div class="page-container ">
+  <div class="container-fluid">
+    <div class="row no-gutters">
+      <!-- Store logo-->
+      <div class="col-md-6 col-sm-5">
+        <div class="image-container">
+          <img *ngIf="logo$ as logo" [src]="logo |async" alt="">
+        </div>
+      </div>
+      <!--Form login -->
+      <div class="col-md-6 col-sm-7">
+        <div class="content">
+          <a routerLink="/{{language['LANGUAGE_CODE']}}" class="backToWebsite align-items-center">
+            <i [ngClass]="language['DIR'] === 'rtl'? 'fa fa-angle-right ml-2' : 'fa fa-angle-left mr-2'"></i>
+            {{language['backToWebsite']}}
+          </a>
+          <div class="form-container">
+            <h3 class="h3--custom">{{language['login']}}</h3>
+            <div class="validation-text" *ngIf="errors.length">
+              <div *ngFor="let error of errors">{{error}}</div>
+            </div>
+            <form [formGroup]="signInForm" (ngSubmit)="signIn()">
+              <div class="form-group">
+                <label for="email">{{language['email']}}</label>
+                <input type="email" name="email" id="email" class="form-control input-lg" [placeholder]="language['email']"
+                  formControlName="email" required>
+                <div class="invalid-feedback">{{language['youMissedThisOne']}}</div>
+              </div>
+
+              <div class="form-group">
+                <label for="password">{{language['password']}} *</label>
+                <input type="password" name="password" id="password" class="form-control input-lg" [placeholder]="language['password']"
+                  formControlName="password" required>
+                <div class="invalid-feedback">{{language['enterYourPassword']}}</div>
+              </div>
+
+              <div class="form-group d-flex justify-content-between align-items-center">
+                <label class="d-flex align-items-center mb-0">
+                  <input type="checkbox" class="mr-2 ml-2">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description small text-dark">{{language['rememberMe']}}</span>
+                </label>
+
+                <a [routerLink]="['/', language['LANGUAGE_CODE'], 'accounts', 'forget-password']" class="btn btn-link p-0 m-0">{{language['forgetYourPassword']}}</a>
+              </div>
+              <button type="submit" class="main-btn">{{language['login']}}</button>
+              <!-- Social login -->
+              <div class="social-login-section text-center">
+                <div class="or-section d-flex justify-content-between align-items-center">
+                  <hr>
+                  <span>{{language['Or']}}</span>
+                  <hr>
+                </div>
+                <div class="social-btns d-flex align-items-center justify-content-between ">
+                  <button type="button" class="social facebook" (click)="signInWithFB()">
+                    <i class="fa fa-facebook-square"></i>
+                    {{language['facebook']}}</button>
+                  <button type="button" class="social google" (click)="signInWithGoogle()">
+                    <i class="fa fa-google"></i>
+                    {{language['google']}}</button>
+                </div>
+                <hr>
+              </div>
+              <!-- Don't have account -->
+              <div class="not-member d-flex align-items-center justify-content-between">
+                <span>{{language['dontHaveAccount']}}</span>
+                <a routerLink="/{{language['LANGUAGE_CODE']}}/accounts/sign-up" class="main-btn m-0">{{language['register']}}</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

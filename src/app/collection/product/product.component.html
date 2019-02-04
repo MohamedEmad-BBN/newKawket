@@ -1,0 +1,124 @@
+<!--product component-->
+<ng-container *ngIf="product">
+
+  <!--product-->
+  <div class="product" [routerLink]="['/', language['LANGUAGE_CODE'], 'collection', 'product', product.code]" >
+
+    <!--product image -->
+    <div class="product__image" [hover]="false" [product]="product" appImage="">
+
+      <!--product hover-->
+      <div class="product__hover">
+
+        <!--Add to wishlist btn-->
+        <button
+          *ngIf="wishListFeature$ | async"
+          (click)="$event.stopPropagation();toggleWishList()"
+          [delay]="500"
+          [ngClass]="{active: fav | async}"
+          tooltip="{{language['wishList']}}"
+          class="product__hover--button product__hover--wishList">
+          <span class="fa fa-heart"></span>
+        </button>
+        <!--Add to wishlist btn-->
+
+        <!--Add to compare btn-->
+        <button
+          *ngIf="compareFeature$ | async"
+          (click)="$event.stopPropagation(); toggleCompare()"
+          [delay]="500"
+          [ngClass]="{active: compare | async}"
+          [tooltip]="language['compare']"
+          class="product__hover--button product__hover--compare">
+          <span class="fa fa-random"></span>
+        </button>
+        <!--Add to compare btn-->
+
+      </div>
+      <!--product hover-->
+
+    </div>
+    <!--product image -->
+
+    <!--product info-->
+    <div class="product__info info">
+
+      <a class="product__info--link"[routerLink]="['/',language['LANGUAGE_CODE'],'collection', 'product', product.code]">{{product | translate :
+          'name'}}</a>
+
+      <!--product price-->
+      <div class="product__price">
+
+        <p class="product__price--original">
+          {{product.variants[0].prices[0].price / 100 | currency :
+          language['egyptianPound']}}
+        </p>
+        <p class="product__price--sale">
+          {{product.variants[0].prices[0].original_price / 100 | currency : language['egyptianPound']}}
+        </p>
+
+      </div>
+      <!--product price-->
+
+      <!--Add to cart btn-->
+      <button (click)="$event.stopPropagation(); openQuickView()" class="product__button product__button--addCart">
+        {{language['addToCart']}}
+      </button>
+      <!--Add to cart btn-->
+
+      <!--Layout in mobile screen-->
+      <div class="product__mobileHover">
+          <button
+            [routerLink]="['/',language['LANGUAGE_CODE'],'collection', 'product', product.code]" aria-hidden="true"
+            tooltip="{{language['addToCart']}}"
+            class="product__button product__button--mobileAddCart">
+            <span>
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            </span>
+          </button>
+          <button
+            *ngIf="wishListFeature$ | async"
+            (click)="$event.stopPropagation(); toggleWishList()" aria-hidden="true"
+            [ngClass]="{active: fav | async}"
+            tooltip="{{language['addToFavorite']}}"
+            class="product__button product__button--mobileWishList">
+             <span>
+              <i class="fa fa-heart" aria-hidden="true"></i>
+            </span>
+          </button>
+      </div>
+      <!--Layout in mobile screen-->
+
+    </div>
+    <!--product info-->
+    <!--product attributes-->
+    <ul class="product__attributes">
+      <li
+        *ngIf="product.discounted"  placement="{{language['DIR']=='rtl'? 'left' : 'right'}}"
+        tooltip="{{language['discount']}}"
+        class="product__attributes--item product__attributes--discount">
+        {{(product.variants[0].prices[0].original_price - product.variants[0].prices[0].price) / product.variants[0].prices[0].original_price | percent}}
+      </li>
+      <li
+        *ngIf="product.new"  placement="{{language['DIR']=='rtl'? 'left' : 'right'}}" tooltip="{{language['new']}}"
+        class="product__attributes--item product__attributes--new">
+        {{language['new']}}
+      </li>
+      <li
+        *ngIf="product.featured" tooltip="{{language['featureProduct']}}" placement="{{language['DIR']=='rtl'? 'left' : 'right'}}"
+        class="product__attributes--item product__attributes--feature">
+          <span class="fa fa-star"></span>
+      </li>
+      <li
+        *ngIf="product.bestseller" class="bestSellers attributes__best" placement="{{language['DIR']=='rtl'? 'left' : 'right'}}"
+        tooltip="{{language['bestSellers']}}"
+        class="product__attributes--item product__attributes--best">
+        <span class="fa fa-line-chart"></span>
+      </li>
+    </ul>
+    <!--product attributes-->
+  </div>
+  <!--product-->
+
+</ng-container>
+<!--product component-->

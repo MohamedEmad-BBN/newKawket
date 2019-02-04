@@ -1,0 +1,217 @@
+@import "../../../variables";
+
+$background-color: $input-background-color;
+:host {
+
+  .product{
+
+    padding:20px;
+    border:1px solid $lightGrayDark;
+    border-radius: 10px;
+    background: $main-second-color;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+
+    &__image{
+      position: relative;
+      width: 220px;
+      height: 225px;
+      margin: auto;
+      overflow: hidden;
+
+    }
+
+    &__hover{
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      position: absolute;
+      top:0;
+      bottom:0;
+      left:0;
+      right:0;
+      height: 100%;
+      width:100%;
+      background-color: rgba(255,255,255,.5);
+      transition:transform .3s cubic-bezier(.53,-.01,0,1.49);
+      transform: scale(0);
+
+      @media(max-width:767px){
+        display: none;
+      }
+
+      &--button{
+        cursor: pointer;
+        background: $main-second-color;
+        border-radius: 50%;
+        height: 40px;
+        width:40px;
+        border:1px solid $cart-color;
+        color:$cart-color;
+        transform: none;
+        transition : background .3s ease-in-out;
+        position: relative;
+        z-index: 100;
+        font-size: 17px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover{
+          background: $cart-color;
+          color:$main-second-color;
+        }
+
+        &:focus{
+          outline:none;
+          box-shadow: unset;
+
+        }
+
+        &.active{
+          background: $cart-color;
+          color:$main-second-color;
+        }
+      }
+    }
+
+    &:hover{
+     .product__hover{
+        transform: scale(1);
+      }
+    }
+
+    &__info{
+
+      &--link{
+        font-size: 17px;
+        font-weight: 700;
+        display: inline-block;
+        margin: 10px 0 10px 0;
+        color:#4c4c4c;
+        &:hover{
+          text-decoration: none;
+        }
+      }
+
+    }
+
+    &__button{
+      display: block;
+      margin: 20px auto 0  auto;
+      cursor: pointer;
+      border:1px solid $cart-color;
+      background: transparent;
+      height: 40px;
+      width: 120px;
+      text-transform:capitalize;
+      color: #525252;
+      transition: color .3s ease-in-out,
+      background .3s ease-in-out;
+
+      &--addCart{
+        border-radius: 22px;
+        @media(max-width:767px){
+          display: none;
+        }
+      }
+
+      &:hover{
+        background-color: $cart-color;
+        color:$main-second-color;
+      }
+
+      &.active{
+        background: $cart-color;
+        color:$main-second-color;
+      }
+    }
+
+    &__price{
+      display: flex;
+      justify-content: space-between;
+
+      &--original{
+        font-weight: 700;
+        color:$cart-color;
+      }
+      &--sale{
+        color:#999999;
+        text-decoration: line-through;
+      }
+    }
+
+    &__mobileHover{
+      display: flex;
+      justify-content: space-evenly;
+
+      @media(min-width:768px){
+        display: none;
+      }
+
+      .product__button{
+        border-radius: 20px;
+        color:$cart-color;
+        &:hover{
+          background-color: $cart-color;
+          color:$main-second-color;
+        }
+        &.active{
+          background-color: $cart-color;
+          color:$main-second-color;
+        }
+      }
+
+    }
+
+    &__attributes{
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      position: absolute;
+      left: -35px;
+      top: 15px;
+      color:$main-second-color;
+      width: 40px;
+
+
+      [dir=rtl] & {
+        right:-35px;
+        left:unset;
+
+      }
+
+
+      &--item{
+        background: #eee;
+        border-radius: 20px;
+        padding: 2px;
+        padding-right: 10px;
+        text-align: right;
+        margin-bottom: 5px;
+        width:80px;
+
+        [dir=rtl] & {
+          text-align: left;
+          padding-right: unset;
+          padding-left: 10px;
+        }
+      }
+
+      &--discount{
+        background: #0099ff;
+      }
+      &--new{
+        background: #20ca54;
+      }
+      &--feature{
+        background: #0099ff;
+      }
+      &--best{
+        background: #f38432;
+      }
+    }
+
+  }
+
+}

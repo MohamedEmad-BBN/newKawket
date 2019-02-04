@@ -1,0 +1,185 @@
+@import "../../../variables";
+/* Modal overwrite
+  ===========================*/
+::ng-deep {
+  .default-modal{
+    .modal-dialog{
+      max-width: 500px;
+      margin: 17.5px auto;
+      &.modal-lg{
+        max-width: 900px;
+      }
+    }
+    .modal-content{
+      height: inherit;
+      border-radius: 10px;
+    }
+    .modal-header{
+      display: flex;
+      align-items: center;
+      padding: 10px 30px;
+      span.status{
+        color: #007bff;
+        font-size: 20px;
+        text-transform: capitalize;
+      }
+      .modal-title{
+        text-transform: capitalize;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .close{
+        cursor: pointer;
+        padding: 0;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 25px;
+        background-color: $orange-color;
+        color: #fff;
+        font-weight: bold;
+        font-family: fantasy;
+        position: absolute;
+        border-radius: 50%;
+        top: -2px;
+        right: 0;
+        opacity: 1;
+        text-shadow: none;
+        transition: all .3s ease-in-out;
+        [dir="rtl"] &{
+          right: auto;
+          left: 0;
+          margin-left: -1rem!important;
+        }
+        &:hover,
+        &:focus{
+          background-color: $main-color;
+          color: #fff;
+        }
+      }
+    }
+    .modal-body{
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    @media all and (max-width: 991.98px) {
+      .modal-dialog{
+        //margin: 1rem;
+        &.modal-lg{
+          width: 95%;
+        }
+        .modal-body{
+          max-height: 60%;
+        }
+      }
+    }
+    @media all and (max-width: 567.98px){
+      .modal-header{
+        display: block;
+        text-align: center;
+        .custom-btn{
+          margin: 5px auto;
+        }
+      }
+    }
+  }
+}
+
+:host{
+  .order-items{
+    max-height: 480px;
+    overflow-y: auto;
+    @media all and (max-width:991.98px) {
+      max-height: inherit;
+    }
+  }
+  .order-item{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cccfd6;
+    &:last-child{
+      border-bottom: 0;
+    }
+    .order-item-number{
+      font-weight: bold;
+    }
+    .order-item-img{
+      width: 70px;
+      height: 70px;
+      background-color: #2e3547;
+      padding: 5px;
+      border-radius: 5px;
+      margin: 0 10px;
+    }
+    .order-item-info{
+      margin-right: 10px;
+      text-transform: capitalize;
+      [dir="rtl"] &{
+        margin-right: auto;
+        margin-left: 10px;
+      }
+      .order-item-name{
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 0;
+      }
+      .item-price{
+        display: block;
+      }
+    }
+    .order-item-total{
+      font-weight: bold;
+      margin-left: auto;
+      text-transform: capitalize;
+      [dir="rtl"] &{
+        margin-left: 0;
+        margin-right: auto;
+      }
+      span:last-child{
+        font-weight: bold;
+        margin: 0 5px;
+      }
+    }
+  }
+  .order-info{
+    list-style-type: none;
+    padding: 10px 15px;
+    background-color: #f1f5f8;
+    margin-bottom: 0;
+    li{
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #b3b7ba;
+      padding: 12px 0;
+      font-size: 18px;
+      text-transform: capitalize;
+      &:last-child{
+        border-bottom: 0;
+      }
+      span:first-child{
+        font-weight: bold;
+      }
+      span:last-child{
+        font-size: 16px;
+      }
+    }
+    .order-total-info{
+      width: 100%;
+      padding: 10px 0 0 20px;
+      li{
+        padding-bottom: 10px;
+        span{
+          font-weight: normal;
+        }
+
+      }
+    }
+    .total-order{
+      span{
+        font-weight: bold;
+      }
+    }
+  }
+}

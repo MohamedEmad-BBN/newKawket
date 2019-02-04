@@ -1,0 +1,120 @@
+<div class="page-container">
+  <div class=" container-fluid">
+    <div class="row no-gutters">
+      <!--Store logo-->
+      <div class="col-md-6 col-sm-5">
+        <div class="image-container" *ngIf="store$ | async as store">
+          <img *ngIf="logo$ as logo" [src]="logo |async" alt="{{ store.name }}">
+        </div>
+      </div>
+      <!-- Sign up Form -->
+      <div class="col-md-6 col-sm-7">
+        <div class="content">
+          <!-- Back to website -->
+          <div class="top-section d-flex justify-content-between align-items-center">
+            <a routerLink="/{{language['LANGUAGE_CODE']}}" class="backToWebsite align-items-center">
+              <i [ngClass]="language['DIR'] === 'rtl'? 'fa fa-angle-right ml-2' : 'fa fa-angle-left mr-2'"></i>
+              {{language['backToWebsite']}}
+            </a>
+            <a routerLink="/{{language['LANGUAGE_CODE']}}/accounts/login" class="main-btn m-0">{{language['login']}}</a>
+          </div>
+          <!-- Form -->
+          <section class="form-container">
+            <h3 class="h3--custom">{{language['register']}}</h3>
+            <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+              <div class="form-group">
+                <label for="firstName">{{language['firstName']}}</label>
+                <input id="firstName" type="text" name="firstName" class="form-control input-lg" formControlName="firstName">
+                <div class="validation-text">
+                  <span *ngIf="signUpForm.controls['firstName'].touched  && signUpForm.controls['firstName'].errors?.required">
+                    {{language['Please_enter_your_first_name']}}
+                  </span>
+                  <span *ngIf="signUpForm.controls['firstName'].touched  && signUpForm.controls['firstName'].errors?.minlength">
+                    {{language['Please_make_your_name_not_less_than_2_letters']}}
+                  </span>
+                  <span *ngIf="signUpForm.controls['firstName'].touched  && signUpForm.controls['firstName'].errors?.pattern">
+                    {{language['Please_make_your_name_doesnt_contain_numbers_or_symbols']}}
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="lastName">{{language['lastName']}}</label>
+                <input type="text" name="lastName" id="lastName" class="form-control input-lg" formControlName="lastName">
+                <div class="validation-text">
+                  <span *ngIf="signUpForm.controls['lastName'].touched  && signUpForm.controls['lastName'].errors?.required">
+                    {{language['please_enter_your_last_name']}}
+                  </span>
+                  <span *ngIf="signUpForm.controls['lastName'].touched  && signUpForm.controls['lastName'].errors?.minlength">
+                    {{language['Please_make_your_name_not_less_than_2_letters']}}
+                  </span>
+                  <span *ngIf="signUpForm.controls['lastName'].touched  && signUpForm.controls['lastName'].errors?.pattern">
+                    {{language['Please_make_your_name_doesnt_contain_numbers_or_symbols']}}
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email">{{language['email']}}</label>
+                <input type="email" name="email" id="email" class="form-control input-lg" formControlName="email">
+                <div class="validation-text">
+                  <span *ngIf="signUpForm.controls['email'].touched  && signUpForm.controls['email'].errors?.required">
+                    {{language['enter_your_email']}}
+                  </span>
+                  <span *ngIf="signUpForm.controls['email'].touched && signUpForm.controls['email'].errors?.pattern">
+                    {{language['enterValidEmail']}}
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password">{{language['password']}}</label>
+                <input type="password" name="password" id="password" class="form-control input-lg" formControlName="password">
+                <div class="validation-text">
+                  <span *ngIf="signUpForm.controls['password'].touched  && signUpForm.controls['password'].errors?.required">
+                    {{language['please_write_your_password']}}
+                  </span>
+                  <span *ngIf="signUpForm.controls['password'].touched  && signUpForm.controls['password'].errors?.minlength">
+                    {{language['please_make_sure_your_password_is_not_less_than_6_characters']}}
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="passwordConfirmation">{{language['confirmPassword']}}</label>
+                <input type="password" name="passwordConfirmation" id="passwordConfirmation" class="form-control input-lg"
+                  formControlName="passwordConfirmation">
+
+                <div class="validation-text">
+                  <span *ngIf="signUpForm.controls['passwordConfirmation'].dirty  && signUpForm.controls['passwordConfirmation'].errors?.required">
+                    {{language['please_write_your_password']}}
+                  </span>
+                  <span *ngIf="signUpForm.controls['passwordConfirmation'].touched  && signUpForm.controls['passwordConfirmation'].errors?.minlength">
+                    {{language['please_make_sure_your_password_is_not_less_than_6_characters']}}
+                  </span>
+                </div>
+                <!--End Validation-text-->
+                <div class="validation-text col">
+                  <span *ngIf="signUpForm.controls['passwordConfirmation'].touched && this.signUpForm.controls['password'].value !==
+                        this.signUpForm.controls['passwordConfirmation'].value">
+                    {{language['passwordsDoNotMatch']}}
+                  </span>
+                </div>
+              </div>
+              <div class="form-group d-flex justify-content-between align-items-center">
+                <label class="d-flex align-items-center mb-0">
+                  <input type="checkbox" class="mr-2 ml-2" formControlName="acceptTerms">
+                  <span class="custom-control-indicator"></span>
+                  <a href="https://zvendo.com/terms-and-conditions/" target="_blank" class="custom-control-description small text-dark">
+                    {{language['readingTermsOfConditions']}}
+                  </a>
+                </label>
+              </div>
+              <button type="submit" class="main-btn" [disabled]="signUpForm.invalid">{{language['register']}}</button>
+              <!-- Form errors -->
+              <div class="row errors my-4 justify-content-center">
+                <p *ngFor="let error of errors" class="alert alert-danger mx-2">{{error}}</p>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

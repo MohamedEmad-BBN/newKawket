@@ -1,0 +1,35 @@
+<form #searchForm class="search-form">
+  <input #search
+         name="search-term"
+         autocomplete="off"
+         placeholder="{{language['search']}}"
+         (keyup)="changed($event.target.value)"
+         (keyup.enter)="serchResult($event.target.value)"
+         (focusout)="focusOutFunction()"
+         class="form-control"
+         aria-label="Search">
+  <button class="icon-btn"  (click)="autoComplete = false; serchResult(search.value)">
+    <i class="fa fa-search" aria-hidden="true"></i>
+  </button>
+
+  <ul id="completionList" *ngIf="autoComplete">
+    <li
+      (click)="autoComplete = false"
+      [routerLink]="['/', language['LANGUAGE_CODE'], 'collection', 'product', product.code]"
+      *ngFor="let product of completeToThose | slice:0:[3]">
+      {{product | translate: 'name'}}
+    </li>
+    <li *ngIf="showNoAvaliableStatus" (click)="autoComplete = false">
+      <span> {{language['noProductsAvaliable']}} </span>
+    </li>
+    <li *ngIf="showAllProducts">
+      <a
+        [routerLink]="['/', language['LANGUAGE_CODE'], 'collection']"
+        [queryParams]="{q: search.value, page: 1}"
+        (click)="autoComplete = false"
+      >
+        {{language['showAllProducts']}}
+      </a>
+    </li>
+  </ul>
+</form>

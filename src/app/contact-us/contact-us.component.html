@@ -1,0 +1,172 @@
+<!--start contact us-->
+<section class="contact-wrapper pt-3 pt-md-5 pb-3 pb-md-5 pl-2 pl-md-0 pr-2 pr-md-0">
+  <div class="container">
+    <!--start contact info section-->
+    <div class="row contact-info bg-color" *ngIf="contactInfo$ | async as contactInfo">
+      <!--start details section-->
+      <section *ngIf="contactInfo[0]" class="col-12 col-md-6 pt-4 pb-4">
+        <h1 class="text-capitalize h1--custom">{{language['contact_info']}}</h1>
+
+        <!--start address section-->
+        <div class="address pt-4 pt-md-5">
+          <h2 class="text-capitalize d-inline h2--custom">{{language['head-quarter']}}: </h2>
+          <p class="d-inline">{{contactInfo[0] | translate:'name'}}</p>
+        </div>
+        <!--end address section-->
+
+        <!--start email section-->
+        <div class="mail pt-3 pt-md-5">
+          <h2 class="text-capitalize d-inline h2--custom">{{language['email']}}: </h2>
+          <p class="d-inline">{{contactInfo[0]?.email}}</p>
+        </div>
+        <!--end email section-->
+
+        <!--start phone section-->
+        <div class="phone pt-3">
+          <h2 class="text-capitalize d-inline h2--custom">{{language['phone_number']}}: </h2>
+          <p class="d-inline">{{contactInfo[0]?.phone}}</p>
+        </div>
+        <!--end phone section-->
+
+      </section>
+      <!--end details section-->
+
+      <!--start map section-->
+      <section class="col-12 col-md-6 p-md-0">
+        <iframe *ngIf="contactInfo[0]" [src]="mapSources[contactInfo[0].id]" width="100%" frameborder="0" height="100%"></iframe>
+      </section>
+      <!--end map section-->
+
+    </div>
+    <!--end contact info section-->
+
+    <!--start our branches-->
+    <div *ngIf="contactInfo$ | async as contactInfo" class="row our-branches bg-color mt-4">
+      <!--start head tittle-->
+      <div *ngIf="contactInfo.length" class="col-12 mb-4 pt-4">
+        <h1 class="text-capitalize h1--custom">{{language['our-branches']}}</h1>
+      </div>
+      <!--end head tittle-->
+
+      <ng-container *ngFor="let branch of contactInfo">
+        <!--start details section-->
+        <div *ngIf="branch" class="col-12 col-md-6 pt-3 pb-4">
+          
+          <!--start address section-->
+          <section class="address">
+            <h2 class="text-capitalize ml-3 branch-name h2--custom">{{language['branch']}} {{branch.id}} : {{branch |
+              translate:'name'}} </h2>
+            <div class="address-details ml-3">
+              <h2 class="text-capitalize d-inline h2--custom">{{language['address']}}: </h2>
+              <p class="d-inline">{{branch | translate:'address'}}</p>
+            </div>
+          </section>
+          <!--end address section-->
+
+          <!--start email section-->
+          <section class="mail pt-4 ml-3">
+            <h2 class="text-capitalize d-inline h2--custom">{{language['email']}}: </h2>
+            <p class="d-inline">{{branch.email}}</p>
+          </section>
+          <!--end email section-->
+
+          <!--start phone section-->
+          <section class="phone pt-3 ml-3">
+            <h2 class="text-capitalize d-inline h2--custom">{{language['phone_number']}}: </h2>
+            <p class="d-inline">{{branch.phone}}</p>
+          </section>
+          <!--end phone section-->
+
+        </div>
+        <!--end details section-->
+
+        <!--start map section-->
+        <div class="col-12 col-md-6 pb-4">
+          <iframe *ngIf="branch" [src]="mapSources[branch.id]" width="100%" frameborder="0" height="100%"></iframe>
+        </div>
+        <!--end map section-->
+
+      </ng-container>
+
+    </div>
+    <!--end our branches-->
+
+    <!--start message-us section-->
+    <div [formGroup]="contactUsForm" class="row messages bg-color mt-4">
+
+      <!--start section tittle-->
+      <div class="col-12 mb-4 pt-4">
+        <h1 class="text-capitalize h1--custom">{{language['message-us']}}</h1>
+      </div>
+      <!--end section tittle-->
+
+      <!--start details section-->
+      <div class="col-12 col-md-6 inputs-section pb-3">
+        <!-- start form -->
+        <!--first name-->
+        <div class="form-group">
+          <label class="text-capitalize">{{language['firstName']}}*</label>
+          <input class="form-control" formControlName="name">
+        </div>
+        <!--phone number-->
+        <div class="form-group">
+          <label class="text-capitalize">{{language['phone_number']}}*</label>
+          <input class="form-control" type="number" formControlName="phoneNumber" autocomplete="true">
+        </div>
+        <!--email-->
+        <div class="form-group">
+          <label class="text-capitalize">{{language['email']}}*</label>
+          <input class="form-control" type="email" formControlName="email" autocomplete="true">
+        </div>
+        <!--subject-->
+        <div class="form-group">
+          <label class="text-capitalize">{{language['subject']}}*</label>
+          <select class="form-control" title="{{language['subject']}}" formControlName="subject">
+            <option value="">{{language['chooseSubject']}}</option>
+            <option>{{language['general']}}</option>
+            <option>{{language['feedback']}}</option>
+            <option>{{language['enquiry']}}</option>
+            <option>{{language['complaint']}}</option>
+          </select>
+        </div>
+        <!-- end form -->
+      </div>
+      <!--end details section-->
+
+      <!--start area section-->
+      <div class="col-12 col-md-6 txt-area">
+
+        <!--start text-area section-->
+        <div class="form-group ml-md-3 mr-3">
+          <label class="text-capitalize">{{language['message-content']}}</label>
+          <textarea class="form-control" placeholder="{{language['message']}}" formControlName="message"></textarea>
+        </div>
+        <!--end text-area section-->
+
+        <!--start submit section-->
+        <div class="d-flex justify-content-between mr-3 ml-3">
+          <!--start checkbox-->
+          <div class="form-group submit--input mr-3">
+            <label class="d-flex align-items-center mb-0">
+              <input type="checkbox" class="mr-2 ml-3" formControlName="notRobot">
+              <span>{{language['i-am-not-a-robot']}}</span>
+            </label>
+          </div>
+          <!--end checkbox-->
+
+          <!--start submit button-->
+          <div class="form-group">
+            <input type="submit" (click)='submitContactUs()' value="{{language['send']}}" class="btn btn-submit"
+              [disabled]="contactUsForm.invalid">
+          </div>
+          <!--end submit button-->
+        </div>
+        <!--end submit section-->
+      </div>
+      <!--start area section-->
+
+    </div>
+    <!--end message-us section-->
+  </div>
+  <!--end container-->
+</section>

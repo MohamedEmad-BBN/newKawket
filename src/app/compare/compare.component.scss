@@ -1,0 +1,236 @@
+@import "../../variables";
+
+::ng-deep{
+  app-breadcrumb{
+    display: none;
+  }
+}
+:host{
+  .compare-page{
+    background-color: #F5F5F5;
+    .compare-page-head{
+      background-color: #007bff;
+      color: #fff;
+      font-size: 18px;
+      padding: 15px 0;
+      margin-bottom: 30px;
+      overflow: hidden;
+      [dir=rtl] & {
+        text-align: right;
+      }
+      .header-title {
+        position: relative;
+        display: inline-block;
+        font-weight: bold;
+        margin: 0;
+        text-transform: uppercase;
+        &:before {
+          position: absolute;
+          content: '';
+          right: 0;
+          bottom: -5px;
+          width: 50%;
+          height: 2px;
+          background: #fff;
+          [dir="rtl"] &{
+            right: auto;
+            left: 0;
+          }
+        }
+      }
+      .header-buttons {
+        text-align: right;
+        [dir="rtl"] &{
+          text-align: left;
+        }
+        .custom-btn{
+          background-color: transparent;
+          color: #fff;
+          border: 0;
+          text-transform: capitalize;
+          cursor: pointer;
+          transition: all .3s ease-in-out;
+          &:hover{
+            color: #fbc900;
+          }
+        }
+      }
+    }
+    .compare-column{
+      .compare-column-head{
+        display: flex;
+        align-items: center;
+        height: 260px;
+        color: #000;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .compare-column-content{
+        color: #000;
+        font-weight: bold;
+        border-top: 1px solid #acacac;
+        .compare-options{
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          li{
+            border-bottom: 1px solid #acacac;
+            padding: 10px 5px;
+            text-transform: capitalize;
+            &:last-child{
+              border-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+    .compare-products{
+      display: flex;
+      flex-wrap: nowrap;
+      max-width: 100%;
+      overflow-x: auto;
+      margin-bottom: 30px;
+      .compare-item{
+        position: relative;
+        margin-bottom: 20px;
+        &:hover{
+          .compare-item-head .compare-item-hover{
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+        .compare-item-head{
+          position: relative;
+          display: flex;
+          flex-flow: column;
+          justify-content: space-between;
+          height: 260px;
+          border: 1px solid #acacac;
+          border-radius: 10px;
+          background-color: #fff;
+          overflow: hidden;
+          margin-bottom: 15px;
+          .compare-item-hover{
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 12px;
+            background-color: rgba(0, 0, 0, 0.8);
+            transition: all .3s ease-in-out;
+            opacity: 0;
+            visibility: hidden;
+            .custom-btn{
+              padding: 5px 20px;
+              border: 0;
+              background-color: #fcb416;
+              color: #fff;
+              font-size: 14px;
+              text-transform: uppercase;
+              border-radius: 20px;
+              cursor: pointer;
+            }
+            .icon-btn{
+              color: #fff;
+              text-transform: capitalize;
+              background-color: #ffc107;
+              padding: 3px 10px;
+              border-radius: 20px;
+              &:hover{
+                color: #fff;
+                background-color: #0d0d0d;
+              }
+            }
+            .remove{
+              width: 30px;
+              height: 30px;
+              line-height: 28px;
+              text-align: center;
+              border: 1px solid #fbc900;
+              border-radius: 100%;
+              background-color: #fff;
+              color: #000000;
+              font-size: 26px;
+              font-family: sans-serif;
+              cursor: pointer;
+              transition: all .3s ease-in-out;
+              &:hover{
+                background-color: #fbc900;
+                color: #FFF;
+              }
+            }
+          }
+          .compare-item-img{
+            padding: 20px;
+            background-color: #ebebeb;
+            div{
+              height: 150px;
+            }
+          }
+          .compare-item-name{
+            padding: 15px 15px 20px;
+            color: #000;
+            font-weight: bold;
+            a{
+              color: #0d0d0d;
+            }
+          }
+        }
+        .compare-item-content{
+          background-color: #FFFFFF;
+          border: 1px solid #acacac;
+          border-radius: 10px;
+          overflow: hidden;
+          .compare-item-specs{
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            li{
+              border-bottom: 1px solid #e1e1e1;
+              padding: 10px 15px;
+              &:last-child{
+                border-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .empty-compare{
+    padding: 30px 0;
+    .custom-btn{
+      background-color: #fcb416;
+      color: #fff;
+      padding: 6px 15px;
+      border-radius: 20px;
+      text-transform: capitalize;
+      &:hover{
+        color: #fff!important;
+        background-color: #000;
+      }
+    }
+  }
+  .empty-item{
+    background-color: #fff;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 20px 10px;
+    border: 1px solid $main-color;
+    i{
+      display: block;
+      font-size: 130px;
+      color: rgba(251, 201, 0, 0.59);
+      margin-bottom: 10px;
+    }
+    .help-text{
+      font-size: 16px;
+      text-transform: capitalize;
+      font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<div class="category-container ">
+  <label *ngFor="let taxon of taxons" class="custom-checkbox">
+    <input type="checkbox" name="category" (change)="collectionService.changeTaxon(taxon.code, $event.target.checked)"
+           [checked]="taxon.selected">
+    <span class="title">{{taxon|translate:'name'}}</span>
+    <span class="label-number">({{taxon.count}})</span>
+    <span class="icon">
+      <i class="fa fa-check"></i>
+    </span>
+    <app-taxon [taxons]="taxon.children"></app-taxon>
+  </label>
+</div>

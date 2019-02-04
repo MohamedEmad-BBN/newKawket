@@ -1,0 +1,175 @@
+
+  <div class="dashboard-content">
+    <div class="title">
+      <h3 id="h3--custom">
+          {{language['addresses-book']}}
+      </h3>
+    </div><!--End Title-->
+    <div class="box-item">
+      <div class="box-item-head">
+          {{language['allAddresses']}}
+      </div>
+      <div class="box-item-content">
+          <div class="row sm-gutters">
+              <div class="col-lg-6" *ngFor="let address of addresses; let i = index">
+                  <div class="address-book">
+                      <div class="address-item"> 
+                        <span>{{language['address']}}</span>
+                        <span>#{{i+1}}</span>  
+                      </div>
+                      <div class="address-item">
+                        <span>{{language['firstName']}}</span>
+                        <span>{{address.FirstName}}</span>
+                      </div>
+                      <div class="address-item">
+                        <span>{{language['lastName']}} </span>
+                        <span>{{address.LastName}}</span>
+                      </div>
+                      <div class="address-item">
+                        <span>{{language['phone_number']}} </span>
+                        <span>{{address.PhoneNumber}}</span>
+                      </div>
+                      <div class="address-item">
+                        <span>{{language['street']}}</span>
+                        <span>{{address.Street}}</span>
+                      </div>
+                      <div class="address-item">
+                        <span>{{language['city']}}</span>
+                        <span>{{address.CityName}}</span>
+                      </div>
+                      <div class="address-item">
+                        <span>{{language['CountryCode']}}</span>
+                        <span>{{address.CountryCode}}</span>
+                      </div>
+                      <a routerLink="/{{language['LANGUAGE_CODE']}}/profile/edit-address/{{address.ID}}" class="btn-dit btn">{{language['edit']}}</a>
+                      <button (click)="deleteAddress(address.ID)" class="btn-delete btn" [disabled]='address.hasOrders'>{{language['delete']}}</button>
+                    </div><!--End Address-book-->
+              </div><!--End Col-->
+            </div><!--End Row-->
+            <div *ngIf="!addresses.length" class="no-address">{{language['noaddress']}}</div>
+        <!-- <a class="btn btn-primary" routerLink="/{{language['LANGUAGE_CODE']}}/profile/add-address">{{language['add_new_address']}}</a> -->
+      </div><!--End box-item=content-->
+    </div><!--End box-item-->
+
+    <div class="box-item">
+        <div class="box-item-head">
+          {{language['add_address']}}
+        </div>
+        <div class="box-item-content">
+            <form class="inline-form" [formGroup]="addAddressForm" (ngSubmit)="addAddress()">
+                <div class="form-group">
+                  <label>{{language['firstName']}}</label>
+                  <input type="text" name="firstName" id="firstName" class="form-control" placeholder="{{language['firstName']}}"
+                          formControlName="firstName">
+
+                          <div class="validation-text">
+                            <div *ngIf="addAddressForm.controls['firstName'].touched && addAddressForm.controls['firstName'].errors?.required">
+                              {{language['Please_enter_your_first_name']}}
+                            </div>
+                            <div *ngIf="addAddressForm.controls['firstName'].touched && addAddressForm.controls['firstName'].errors?.minlength">
+                              {{language['Please_make_your_name_not_less_than_3_letters']}}
+                            </div>
+                            <div *ngIf="addAddressForm.controls['firstName'].touched && addAddressForm.controls['firstName'].errors?.pattern">
+                              {{language['Please_make_your_name_doesnt_contain_numbers_or_symbols']}}
+                            </div>
+                        </div><!--End Validation-text--> 
+
+                </div><!--End Form-group-->
+                <div class="form-group">
+                  <label>{{language['lastName']}}</label>
+                  <input type="text" name="lastName" id="lastName" class="form-control" placeholder="{{language['lastName']}}"
+                          formControlName="lastName" >
+                  
+                          <div class="validation-text">
+                            <div *ngIf=" addAddressForm.controls['lastName'].touched && addAddressForm.controls['lastName'].errors?.required">
+                              {{language['please_enter_your_last_name']}}
+                            </div>
+                            <div *ngIf="addAddressForm.controls['lastName'].touched && addAddressForm.controls['lastName'].errors?.minlength">
+                              {{language['Please_make_your_name_not_less_than_3_letters']}}
+                            </div>
+                            <div *ngIf="addAddressForm.controls['lastName'].touched && addAddressForm.controls['lastName'].errors?.pattern">
+                              {{language['Please_make_your_name_doesnt_contain_numbers_or_symbols']}}
+                            </div>
+                          </div><!--End Validation-text-->        
+
+                </div><!--End Form-group-->
+                <div class="form-group">
+                  <label>{{language['company']}}</label>
+                  <input type="text" name="company" id="company" class="form-control" placeholder="{{language['company']}}"
+                         formControlName="company">                   
+
+                </div><!--End Form-group-->
+        
+                <div class="form-group">
+                  <label>{{language['phone_number']}}</label>
+                  <input type="text" name="phoneNumber" id="phoneNumber" class="form-control"
+                         placeholder="{{language['phone_number']}}" formControlName="phoneNumber">
+                  
+                         <div class="validation-text">
+                          <div
+                            *ngIf="addAddressForm.controls['phoneNumber'].touched && addAddressForm.controls['phoneNumber'].errors?.required">
+                            {{language['please_enter_your_phone_number']}}
+                          </div>
+                          <div
+                            *ngIf="addAddressForm.controls['phoneNumber'].touched && addAddressForm.controls['phoneNumber'].errors?.pattern">
+                            {{language['Not_validEGPhoneNumber']}}
+                          </div>
+                        </div><!--End Validation-text-->
+
+                </div><!--End Form-group-->
+        
+                <div class="form-group">
+                  <label>{{language['street']}}</label>
+                  <input type="text" name="street" id="street" class="form-control" placeholder="{{language['street']}}"
+                         formControlName="street">
+                        
+                         <div class="validation-text">
+                            <div
+                              *ngIf="addAddressForm.controls['street'].touched && addAddressForm.controls['street'].errors?.required">
+                              {{language['please_enter_your_street']}}
+                            </div>
+                          </div>
+
+                </div><!--End Form-group-->
+        
+                <div class="form-group">
+                  <label>{{language['country']}}</label>
+                  <select name="countryCode" id="countryCode" class="form-control" formControlName="countryCode"
+                          (change)="updateAddressingCities($event.target.value)">
+                    <option value="" disabled>{{language['country']}}</option>
+                    <option *ngFor="let country of countries">{{country.code}}</option>
+                  </select>
+
+                  <div class="validation-text">
+                    <div
+                      *ngIf="addAddressForm.controls['countryCode'].touched && addAddressForm.controls['countryCode'].errors?.required">
+                      {{language['please_enter_your_country']}}
+                    </div>
+                  </div>
+                </div><!--End Form-group-->
+
+                <div class="form-group">
+                  <label>{{language['city']}}</label>
+                  <select name="cityName" id="cityName" class="form-control" formControlName="cityName">
+                    <option value="" disabled>{{language['city']}}</option>
+                    <option *ngFor="let city of cities">{{city.name}}</option>
+                  </select>
+
+                  <div class="validation-text">
+                    <div
+                      *ngIf="addAddressForm.controls['cityName'].touched && addAddressForm.controls['cityName'].errors?.required">
+                      {{language['please_enter_your_city']}}
+                    </div>
+                  </div>
+
+                </div><!--End Form-group-->
+                <div class="form-group justify-content-end">
+                    <input type="submit" value="{{language['add_address']}}" class="custom-btn"
+                    [disabled]="!addAddressForm.valid">
+                </div><!--End Form-group-->
+              </form>
+        </div><!--End box-item=content-->
+      </div><!--End box-item-->
+  </div><!--End dashboard-content-->
+
+

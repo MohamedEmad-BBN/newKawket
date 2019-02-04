@@ -1,0 +1,40 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+$main-color: #292929;
+// used as the main color of the text
+$main-second-color: #ffffff;
+// used as color for dark background, also some backgrounds
+$second-color: #0099ff;
+// used for some text color as the headers, checked border and background of product attributes and labels
+$third-color: #7a7a7a;
+// used for some text color as the headers, checked border and background of product attributes and labels
+$border-color: #acacac;
+// the border color for
+$background-color: #F5F5F5;
+// the main background color of the params
+$input-background-color: #ebebeb;
+// the background color for the hovered inputs
+$hovered-opacity: 0.6;
+$hr-color: #adadad;
+$top-header-background-color: #333333;
+$forth-color: #01427f;
+$orange-color: #fcb416;
+$cart-color: #fcb416;
+
+// green color 
+$greenColor: #368840;
+$lightGray: rgba(0, 0, 0, .02);
+$borderColor: rgba(0, 0, 0, .05);
+$lightGrayDark: rgba(0, 0, 0, .1);
+$textColor: #808080;
+
+
+@mixin make-container-widths($max-widths: $container-max-widths, $breakpoints: $grid-breakpoints) {
+  @each $breakpoint, $container-max-width in $max-widths {
+    @include media-breakpoint-up($breakpoint, $breakpoints) {
+      width: $container-max-width;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+@import "../filter.component";
+:host {
+  display: block;
+  margin-top: 15px;
+  .label-number{
+    margin: 0 5px;
+  }
+}

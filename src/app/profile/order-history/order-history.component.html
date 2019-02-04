@@ -1,0 +1,175 @@
+<div class="dashboard-content">
+  <div class="title">
+    <h3 id="h3--custom">
+      {{language['orders']}}
+    </h3>
+  </div><!--End Title-->
+  <div class="box-item order" *ngFor="let order of orders; let i = index">
+    <div class="box-item-head">
+      <span>{{language['order_id']}}: </span>
+      <span> {{order.id}}</span>
+      <span class="status">
+          {{language['status']}} : {{order.checkoutState}}
+        </span>
+    </div>
+    <div class="box-item-content">
+      <div class="cool">
+            <span>
+              <b>{{language['order_number']}}: </b>
+              <span>{{i + 1}}</span>
+            </span>
+        <span>
+                <b>{{language['time']}} : </b>
+                <span> {{order.createdAt | date}}</span>
+            </span>
+      </div><!--End Cool-->
+      <div class="cool">
+          <span class="items">
+            <b>{{order.items?.length}}</b> Items
+          </span>
+        <span class="total">
+            <b>{{language['orderTotal']}} : </b>
+            <span>{{ (order.total) / 100 | currency: language['egyptianPound']}}</span>
+          </span>
+      </div><!--End Cool-->
+
+      <div class="cool">
+            <span>
+                <b>{{language['order_notes']}} :</b>
+                <span> {{order.notes}}</span>
+            </span>
+      </div><!--End Cool-->
+      <div class="cool justify-content-end">
+        <button class="custom-btn" type="button">
+          print invoice
+        </button>
+        <button class="custom-btn" type="button" (click)="openModal(order.id, orderDetialsModal)">
+          {{language['viewMore']}}
+        </button>
+      </div><!--End Cool-->
+    </div><!--End Box-item-content-->
+   
+   
+   
+   
+   
+
+
+    
+  </div><!--End Box-item-->
+  <div *ngIf="error">{{error}}</div>
+
+  <div class="pagination-container" >
+    <pagination [totalItems]="pagesCount" [itemsPerPage]="1" [maxSize]="4" (pageChanged)="pageChanged($event)" [(ngModel)]="currentPage"></pagination>
+  </div>
+</div>
+<!--End Dashboard-content-->
+
+
+
+
+
+
+<div class="modal fade default-modal" bsModal #orderDetialsModal="bs-modal"
+tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
+<div class="modal-dialog modal-lg modal-dialog-centered" *ngIf="order">
+<div class="modal-content">
+ <div class="modal-header">
+   <h4 id="dialog-static-name" class="modal-title">
+     <span>{{language['order_id']}}: </span>
+     <span> {{order.id}}</span>
+   </h4>
+   <span class="status">
+       {{language['status']}} : {{order.checkoutState}}
+     </span>
+   <button class="custom-btn d-block" (click)='reorder(order)'>
+     {{language['reOrder']}}
+   </button>
+   <button type="button" class="close pull-right" aria-label="Close" (click)="orderDetialsModal.hide()">
+     <span aria-hidden="true">&times;</span>
+   </button>
+ </div><!--End Modal-header-->
+ <div class="modal-body">
+   <div class="row xsm-gutters">
+     <div class="col-md-6">
+       <div class="order-items">
+         <div class="order-item" *ngFor="let item of order.items; let i = index;">
+               <span class="order-item-number">
+                 {{i + 1}}
+               </span>
+           <div class="order-item-img">
+             <img class="img-fluid" src="http://testbestoffer.zvendo.online/store/web/media/image/{{item.variant.product.images[0]?.path}}" alt="">
+           </div><!--End Order-item-img-->
+           <div class="order-item-info">
+                 <span class="item-id">
+                   <span>ID </span>
+                   <span>{{item.id}}</span>
+                 </span>
+             <h4 class="order-item-name">
+               <span>{{item.variant.product | translate : 'name'}} </span> <br>
+               ({{ item.variant | translate : 'name' }})
+             </h4>
+             <span class="item-quantity">
+                   <span>{{language['quantity']}}: </span>
+                   <span>{{item.quantity}}</span>
+                 </span>
+             <span class="item-price">
+                   <span>{{language['price']}}: </span>
+                   <span>{{ (item.unitPrice) /100 | currency: language['egyptianPound']}}</span>
+                 </span>
+           </div><!--End Order-item-info-->
+           <div class="order-item-total">
+             <span>{{language['total']}}: </span>
+             <span>{{ (item.total) / 100 | currency: language['egyptianPound']}}</span>
+           </div>
+         </div><!--End Order-item-->
+
+       </div><!--End order-items-->
+     </div><!--End Col--->
+     <div class="col-md-6">
+       <ul class="order-info">
+         <li>
+           <span>{{ language['shippingAddress']}}</span>
+           <span>{{ order.shippingAddress?.city }} , {{order.shippingAddress?.government}}</span>
+         </li>
+         <li>
+           <span>{{ language['shipping'] }}</span>
+           <span>
+                 {{ order.shipments[0].method.name}}
+               </span>
+         </li>
+         <li>
+           <span>{{language['payment_type']}}</span>
+           <span>{{ order.payments[0].method.name}}</span>
+         </li>
+         <li *ngIf="order.promotionCode">
+           <span>promotion code</span>
+           <span>summer-free-50</span>
+         </li>
+         <li>
+           <ul class="order-total-info">
+             <li>
+               <span>{{language['subtotal']}}</span>
+               <span>{{ (order.itemsTotal) / 100 | currency: language['egyptianPound'] }}</span>
+             </li>
+             <li>
+               <span>{{language['shipping']}}</span>
+               <span>{{ (order.adjustmentsTotal) / 100 | currency: language['egyptianPound'] }}</span>
+             </li>
+             <li>
+               <span>{{language['summaryPromotions'] }}</span>
+               <span>{{ (order.promotionTotal) / 100 | currency: language['egyptianPound'] }}</span>
+             </li>
+           </ul>
+         </li>
+         <li class="total-order">
+           <span>{{language['totalPrice']}}</span>
+           <span>{{ (order.total) / 100 | currency: language['egyptianPound'] }}</span>
+         </li>
+       </ul><!--End Irder-info-->
+     </div><!--End Col-->
+   </div><!--End Row-->
+ </div><!--End Modal-body-->
+</div><!--End modal-content-->
+</div><!--End Modal-dialog-->
+</div><!--End Modal-->

@@ -1,0 +1,300 @@
+
+  <div class="collection__spinner" *ngIf="!selectedVariant">
+    <div class="lds-ellipsis"> <div></div> <div></div> <div></div> <div></div> </div>
+  </div>
+<section class="singleProduct" *ngIf="selectedVariant">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="gallery">
+          <carousel [interval]="false" *ngIf="product.images.length > 0 ; else displayImage">
+            <slide *ngFor="let image of product.images" class="main-image-product">
+              <div class="easyzoom easyzoom--overlay easyzoom--with-thumbnails is-ready" style="width:100%">
+                <a [href]="imageUrl + image.path">
+                  <img
+                    [src]="imageUrl + image.path"
+                    alt="first slide"
+                    class="img-fluid"
+                    #thisImage
+                    (error)="thisImage.src = defaultImage"
+                    [alt]="product.name"
+                    (load)="handleEasyZoom()"
+                  >
+                </a>
+              </div>
+            </slide>
+          </carousel>
+          <ng-template #displayImage>
+            <div class="easyzoom--with-thumbnails">
+              <img [src]=" defaultImage" alt="first slide" class="img-fluid" style="width: 100%" [alt]="product.name">
+            </div>
+          </ng-template>
+
+          <div class="gallery--more thumbnails">
+            <span class="imgSlide" *ngFor="let image of product.images">
+                <a [href]="imageUrl + image.path">
+                <img
+                  [src]="imageUrl + image.path"
+                  alt="first slide"
+                  class="img-fluid"
+                  #thisImage
+                  (error)="thisImage.src = defaultImage"
+                >
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="info">
+          <h6 class="info--name">{{product | translate: 'name'}}</h6>
+
+
+          <hr class="info--hr" *ngIf="reviewsFeature$ | async">
+
+          <div class="info--more">
+            <div class="rating" *ngIf="reviewsFeature$ | async">
+              <div class="rating--body">
+                <rating
+                  [(ngModel)]="rate"
+                  [max]="maxRate"
+                  [readonly]="true"
+                ></rating>
+                <!--(keyup)="confirmSelection($event)"-->
+                <!-- <i class="fa fa-star" aria-hidden="true" *ngFor="let star of star"></i> -->
+                <!--<i class="fa fa-star-o" aria-hidden="true" *ngFor="let star of emptyStar"></i>-->
+              </div>
+            </div>
+            <div class="interact">
+              <span *ngIf="wishListFeature$ | async" class="interact__icon interact__icon--mr" (click)="toggleWishList()">
+                <i class="fa fa-heart" [ngClass]="{'active': fav | async}" aria-hidden="true"></i>
+              </span>
+              <span *ngIf="compareFeature$ | async" class="interact__icon interact__icon--mr" (click)="toggleCompare()">
+                <i class="fa fa-random" [ngClass]="{'active': compare | async}" aria-hidden="true"></i>
+              </span>
+            </div>
+          </div>
+          
+          <hr *ngIf="product.translations[language['LANGUAGE_CODE']].short_description">
+          <ul class="productDescription mt-4" *ngIf="product.translations[language['LANGUAGE_CODE']].short_description">
+          <li>
+            <h2 class="productDescription__title h2--custom">
+              {{language['shortDescription']}}
+            </h2>
+          </li>
+
+            <div class="infoDescription--list" title="{{product | translate: 'short_description'}}">
+              {{product | translate: 'short_description'}}
+            </div>
+        </ul>
+        <hr>
+          <div *ngFor="let option of product.options">
+            <div class="form-group">
+              <label class="control-label" [for]="option.code">
+                {{ option | translate: 'name' }}
+              </label>
+              <select
+                [id]="option.code"
+                title="{{option.name}}"
+                class="form-control"
+                [(ngModel)]="options[option.code]"
+                (change)="optionChanged(option.code, $event.target.value)"
+              >
+                <option value="">{{language['selectA']}} {{ option | translate: 'name' }}</option>
+                <option *ngFor="let variant of option.option_values" [value]="variant.code">
+                  {{variant | translate: 'name'}}
+                </option>
+              </select>
+            </div>
+          </div>
+          
+           <!--price-->
+           <div class="price">
+
+              <div class="price__offer">
+                {{selectedVariant.prices[0].price / 100 | currency: language['egyptianPound']}}
+              </div>
+  
+              <div class="price__original">
+                <span *ngIf="product.discounted"
+                      class="original-price">
+                  {{selectedVariant.prices[0].original_price / 100 | currency: language['egyptianPound']}}
+                </span>
+              </div>
+            </div>
+            <!--price-->
+
+          <div class="col-sm-3 col-3 my-3">
+            <input
+              title="quantity"
+              class="form-control"
+              type="number"
+              [(ngModel)]="quantity"
+              (change)="quantityChanged()"
+              min="1"
+              [max]="max"
+              [disabled]="disableQuantity"
+            >
+          </div>
+
+          <hr>
+          <div class="cart-submit">
+              <button class="btn--card" (click)="addToCart()"  [disabled]="!canAddToCart" role="button" aria-label="add to cart">
+                {{canAddToCart ? language['addToCart'] : language['outOfStock']}}
+              </button>
+            </div>
+         
+         
+
+
+          <!-- <div class="infoDescription" *ngIf="product.description">
+            <p class="infoDescription--title">{{language['short_description']}}</p>
+            <div class="infoDescription--list">
+              {{product | translate: 'short_description'}}
+            </div>
+          </div> -->
+        
+          
+          <hr>
+          <div class="share">
+            <span class="share--text">
+              {{language['share']}}
+            </span>
+            <span class="share__item share--item-fb share--item--mr">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+            </span>
+            <span class="share__item share--item-tw share--item--mr">
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+            </span>
+            <span class="share__item share--item-gp share--item--mr">
+              <a href="">
+                <i class="fa fa-google-plus" aria-hidden="true"></i>
+              </a>
+            </span>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="full-width">
+        <div class="col-xs-12">
+          <tabset>
+            <tab class="description" [heading]="language['description']" *ngIf="product | translate: 'description'">
+              {{product | translate: 'description'}}
+            </tab>
+
+            <tab [heading]="language['specifications']" *ngIf="product.attributes.length">
+              <table id="attributes-table" class="table table-hover">
+                <tr *ngFor="let attribute of product.attributes">
+                  <td>{{attribute | translate: 'name'}}</td>
+                  <td>
+                    <span *ngFor="let value of attribute.values; let l = last;">
+                      {{value | translate: 'name'}}<ng-container *ngIf="!l">, </ng-container>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </tab>
+
+            <tab [heading]="language['reviews']"  *ngIf="reviewsFeature$ | async">
+              <div class="row reviews">
+                <div class="col-md-8 col-sm-12">
+                  <form class="form-group" [formGroup]="reviewForm" (submit)="submitReview()">
+                    <div class="form-row p-2 pt-4 pl-3">
+
+
+                      <div class="d-flex align-items-center">
+
+                        <input class="form-control col" placeholder="{{language['reviewTitle']}}" formControlName="title">
+                        <div class="rating col ">
+                          <rating
+                            [max]="maxRate"
+                            (onLeave)="rateChange($event)"
+                          ></rating>
+                          <!--[(ngModel)]="rating"-->
+                        </div>
+
+                      </div>
+
+
+                    </div>
+                    <div class="form-row p-2 pl-3">
+                      <textarea class="form-control" placeholder="{{language['addYourcomment']}}"
+                                formControlName="comment"></textarea>
+                    </div>
+                    <div class="form-row p-2 pl-3">
+                      <input [ngClass]="{'d-none': logged$ | async}" type="email" class="form-control col"
+                             placeholder="{{language['email']}}" formControlName="email">
+                      <div class="col p-0">
+                        <input type="submit" class="btn btn-primary add-review" value="{{language['add']}}"
+                               [disabled]="reviewForm.invalid">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="rate-container col-md-4 col-sm-12 pt-4">
+                  <div class="circle m-auto">{{rate | number: '1.1-1'}}</div>
+                  <div class="text-center">
+                    <rating
+                      [(ngModel)]="rate"
+                      [max]="maxRate"
+                      [readonly]="true"
+                    ></rating>
+                  </div>
+                </div>
+              </div>
+              <div *ngFor="let review of reviews$ | async" class="row p-3">
+                <div class="col-8">
+                  <div class="row">
+                    <div class="col">
+                      <rating
+                        [(ngModel)]="review.rating"
+                        [max]="maxRate"
+                        [readonly]="true"
+                      ></rating>
+                    </div>
+                    <div class="col review-date">
+                      <span>On {{review.createdAt | date: 'yyyy-MM-dd hh:mm'}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-8">
+                  <h3 class="review-user-name h3--custom">{{review.author?.firstName}} {{review.author?.lastName}}</h3>
+                </div>
+                <div class="col-8">
+                  <h2 class="review-title h2--custom">{{review.title}}</h2>
+                </div>
+                <div class="col-8">
+                  <div class="review-comment">
+                    {{review.comment}}
+                  </div>
+                </div>
+              </div>
+            </tab>
+          </tabset>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngFor="let association of product.associations">
+      <div class="container container-fluid-md mb-lg-0 my-5" *ngIf="association.associated_products.length">
+        <h2 class="h2--custom">{{association | translate: 'name'}}</h2>
+        <owl-carousel
+          [options]="changeCarouselOptions(bestsellersOption)"
+          [carouselClasses]="['owl-theme', 'owl-flex']"
+          [items]="association.associated_products"
+          #owlDiscountedItem
+        >
+          <div class="item" [ngClass]="{first: first, last: last}"
+               *ngFor="let item of association.associated_products;let first = first;let last = last;">
+            <app-product [product]="item"></app-product>
+          </div>
+        </owl-carousel>
+      </div>
+    </ng-container>
+  </div>
+</section>

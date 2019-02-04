@@ -1,0 +1,100 @@
+@import "../../variables";
+
+:host {
+  /* footer
+  ===============================*/
+  .footer {
+    background-color: #1a1a1a;
+    padding: 60px 0 0;
+    .foot-widget {
+      position: relative;
+      margin-bottom: 25px;
+      p {
+        color: #ffffff;
+        font-size: 16px;
+        line-height: 26px;
+      }
+      .logo {
+        margin-bottom: 20px;
+        display: block;
+        max-width: 210px;
+      }
+      .title {
+        text-transform: uppercase;
+        font-size: 18px;
+        color: #fcb416;
+        margin-bottom: 20px;
+      }
+    }
+    /*subscribe-form*/
+    .subscribe-form {
+      position: relative;
+      margin-bottom: 25px;
+      .form-control {
+        border-radius: 30px;
+        padding: 0 20px;
+        height: 40px;
+      }
+      .subscribe-btn {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
+        border-radius: 100%;
+        font-size: 16px;
+        padding: 0;
+        border: 1px solid #e8e8e8;
+        background-color: #fcb416;
+        color: #fff;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all .35s ease-in-out;
+        [dir="rtl"] &{
+          left: 1px;
+          right: auto;
+        }
+        &:hover,
+        &:focus {
+          background-color: #fc9817;
+          color: #fff;
+        }
+      }
+    }
+  }
+  .footer-copyright {
+    background-color: #0d0d0d;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    overflow: hidden;
+    p {
+      color: #b4b4b8;
+      margin: 0;
+      a {
+        color: #b4b4b8;
+
+        &:hover {
+          color: #fc9e17
+        }
+      }
+    }
+  }
+  @media all and (max-width: 767.99px) {
+    .main-footer {
+      text-align: center;
+    }
+    .footer .foot-widget .logo{
+      margin: 0 auto 20px;
+    }
+  }
+  @media all and (max-width: 455px) {
+    .footer-copyright .float-left,
+    .footer-copyright .float-right {
+      float: none !important;
+      text-align: center;
+
+    }
+  }
+}

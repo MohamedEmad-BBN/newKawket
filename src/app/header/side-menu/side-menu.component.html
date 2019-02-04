@@ -1,0 +1,142 @@
+<div class="modal-header">
+  <button class="close-btn" (click)="modal.hide()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </button>
+  <a class="logo" routerLink="/{{language['LANGUAGE_CODE']}}">
+    <img *ngIf="logo$ | async as logo" [src]="logo" alt="logo">
+  </a>
+</div>
+<div class="modal-body">
+  <ul class="navbar-nav">
+    <li
+      *ngFor="let taxon of taxons"
+      [value]="taxon.code"
+      (click)="taxon.selected = !taxon.selected; $event.stopPropagation()"
+      [ngClass]="{'mainActive': taxon.selected}"
+      (mouseenter)="taxon.selected = true"
+      (mouseleave)="taxon.selected = false"
+    >
+      <a
+        *ngIf="!taxon.children"
+        routerLink="/{{language['LANGUAGE_CODE']}}/collection"
+        [queryParams]="{taxons: taxon.code}"
+        (click)="modal.hide()">
+        <span>{{ taxon.name }}</span>
+      </a>
+      <a
+        *ngIf="taxon.children"
+        routerLink="/{{language['LANGUAGE_CODE']}}/collection"
+        [queryParams]="{taxons: taxon.code}">
+        <span>{{taxon | translate: 'name'}}</span>
+        <i *ngIf="taxon.children && !taxon.selected" class='fa fa-plus' aria-hidden='true'></i>
+        <i *ngIf="taxon.children && taxon.selected" class='fa fa-minus' aria-hidden='true'></i>
+      </a>
+
+      <ul class="children dropdown-menu" *ngIf="taxon.children && taxon.selected">
+        <li
+          *ngFor="let child of taxon.children"
+          (click)="child.selected = !child.selected; $event.stopPropagation()"
+          [ngClass]="{'childActive': taxon.selected}"
+          (mouseenter)="child.selected = true"
+          (mouseleave)="child.selected = false"
+        >
+          <a
+            *ngIf="!child.children"
+            routerLink="/{{language['LANGUAGE_CODE']}}/collection"
+            [queryParams]="{taxons: child.code}"
+            (click)="modal.hide()">
+            <span>{{child | translate: 'name'}}</span>
+          </a>
+          <a *ngIf="child.children">
+            <span>{{ child.name }}</span>
+            <i *ngIf="child.children && !child.selected" class='fa fa-plus' aria-hidden='true'></i>
+            <i *ngIf="child.children && child.selected" class='fa fa-minus' aria-hidden='true'></i>
+          </a>
+          <ul class="grandChildren dropdown-menu" *ngIf="child.children && child.selected">
+            <li *ngFor="let child of child.children">
+              <a
+                routerLink="/{{language['LANGUAGE_CODE']}}/collection"
+                [queryParams]="{taxons: child.code}"
+                (click)="modal.hide()">
+                <span>{{child|translate:'name'}}</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="navbar-nav static-pages-nav">
+    <li class="nav-item" *ngFor="let staticPage of staticPages">
+      <a class="nav-link" [routerLink]="['/', language['LANGUAGE_CODE'], 'page', staticPage.code]" (click)="modal.hide()">
+        {{staticPage | translate:'name'}}
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/', language['LANGUAGE_CODE'], 'contact-us']" (click)="modal.hide()">
+        {{language['contact-us']}}
+      </a>
+    </li>
+  </ul>
+
+  <div class="header-icons">
+    <div class="header-icons-item logins">
+      <a *ngIf="logged$ | async; else login;" [routerLink]="['/', language['LANGUAGE_CODE'], 'profile', 'dashboard']" (click)="modal.hide()">
+        <i class="fa fa-user" aria-hidden="true"></i>
+        <span>{{userName | async}}</span>
+      </a>
+      <a *ngIf="logged$ | async" (click)="logout();modal.hide();" class="logOut">
+        <i class="fa fa-sign-out" aria-hidden="true"></i>
+        <span>{{language['logout']}}</span>
+      </a>
+      <ng-template #login>
+        <a  [routerLink]="['/', language['LANGUAGE_CODE'], 'accounts', 'login']" (click)="modal.hide()">
+          <i class="fa fa-user" aria-hidden="true"></i>
+          <span>{{language['login']}}</span>
+        </a>
+      </ng-template>
+    </div><!--End Header-icons-items-->
+    <div class="header-icons-item" *ngIf="wishListFeature$ | async">
+      <a [routerLink]="['/', language['LANGUAGE_CODE'], 'wish-list']" (click)="modal.hide()">
+        <i class="fa fa-heart" aria-hidden="true"></i>
+        <span>{{language['wishList']}}</span>
+        <span class="label">{{wishListCounter | async}}</span>
+      </a>
+    </div><!--End Header-icons-items-->
+
+    <div class="header-icons-item" *ngIf="compareFeature$ | async">
+      <a routerLink="/{{language['LANGUAGE_CODE']}}/compare" (click)="modal.hide()">
+        <i class="fa fa-random" aria-hidden="true"></i>
+        <span>{{language['compare']}}</span>
+        <span class="label">{{compareCounter | async}}</span>
+      </a>
+    </div><!--End header-icons-item-->
+
+    <div class="header-icons-item">
+      <a href="#" [routerLink]="['/', language['LANGUAGE_CODE'], 'cart']" id="cart" (click)="modal.hide()">
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        <span>{{ language['cart'] }}</span>
+        <span class="label">{{ cartCounter | async }}</span>
+      </a>
+    </div><!--End Header-icons-items-->
+    <div class="header-icons-item">
+      <div id="lang" class="dropdown" (click)="openLanguageList = !openLanguageList">
+        <a class="nav-item">
+          <i class="fa fa-language"></i>
+          <span>{{language['language']}}</span>
+        </a>
+        <ul id="languages" class="dropdown-menu" *ngIf="openLanguageList">
+          <li *ngFor="let availableLanguage of availableLanguages" [ngStyle]="{direction: availableLanguage.dir}">
+            <a [ngClass]="{activated: availableLanguage.code == language['LANGUAGE_CODE']}"
+               [queryParams]="queryParams" [routerLink]="redirectUrls[availableLanguage.code]" (click)="modal.hide()">
+              {{availableLanguage.name}}
+            </a>
+          </li>
+        </ul>
+      </div><!--End Dropdown-language-->
+    </div><!--End Header-icons-item-->
+  </div><!--End Header-icons-->
+  <div class="header-search">
+    <app-search (searchFired$)="modal.hide();"></app-search>
+  </div><!--End Header-search-->
+</div>

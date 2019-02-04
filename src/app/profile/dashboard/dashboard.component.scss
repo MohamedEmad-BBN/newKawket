@@ -1,0 +1,47 @@
+:host {
+  .dashboard-content {
+    ::ng-deep {
+
+      .verfy-mail {
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        @media(max-width: 991px) {
+          flex-direction: column;
+        }
+
+        [dir=rtl] & {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: space-between;
+
+          @media(max-width: 991px) {
+            flex-direction: column;
+          }
+        }
+
+        .custom-btn {
+          float: right;
+
+          [dir=rtl] & {
+            float: left;
+          }
+        }
+      }
+
+
+      input[type=date]::-webkit-inner-spin-button,
+      input[type=date]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+          &[type=date]{
+            -moz-appearance: textfield;
+          }
+        }
+      }
+
+}

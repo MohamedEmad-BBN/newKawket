@@ -1,0 +1,194 @@
+<div class="dashboard-content">
+  <div class="title">
+    <h3 id="h3--custom">
+        {{language['setting']}}<br>
+        <small>{{language['manage_your_personal_information_and_preferences']}}</small>
+    </h3>
+  </div><!--End Title-->
+  <div class="box-item" *ngIf="!isVerified">
+    <div class="box-item-head">
+        {{language['verify_your_email']}}
+    </div>
+    <div class="box-item-content verfy-mail">
+        <b>{{ user_email }}</b>
+        <button class="custom-btn" (click)="verifyMail()">{{language['verify_your_email']}}</button>
+    </div><!--End box-item=content-->
+  </div><!--End box-item-->
+
+  <div class="box-item">
+    <div class="box-item-head">
+        {{language['personal_info']}}
+    </div>
+    <div class="box-item-content">
+        <form class="inline-form" [formGroup]="personalForm">
+            <div class="form-group">
+                <label for="firstName" >{{language['firstName']}}: </label>
+                <input type="text" formControlName="firstName" id="firstName" class="form-control">
+            </div><!--End Form-group-->
+            <!-- div to show error -->
+            <div class="validation-text">
+                <div *ngIf="personalForm.controls['firstName'].touched && personalForm.controls['firstName'].errors?.required">
+                  {{language['Please_enter_your_first_name']}}
+                </div>
+                <div *ngIf="personalForm.controls['firstName'].touched && personalForm.controls['firstName'].errors?.minlength">
+                  {{language['Please_make_your_name_not_less_than_3_letters']}}
+                </div>
+                <div *ngIf="personalForm.controls['firstName'].touched && personalForm.controls['firstName'].errors?.pattern">
+                  {{language['Please_make_your_name_doesnt_contain_numbers_or_symbols']}}
+                </div>
+            </div><!--End Validation-text-->
+            <div class="form-group">
+              <label for="lastName">{{language['lastName']}} :</label>
+              <input type="text" formControlName="lastName" id="lastName" class="form-control">
+            </div><!--End Form-group-->
+            <!-- div to show error -->
+            <div class="validation-text">
+              <div *ngIf=" personalForm.controls['lastName'].touched && personalForm.controls['lastName'].errors?.required">
+                {{language['please_enter_your_last_name']}}
+              </div>
+              <div *ngIf="personalForm.controls['lastName'].touched && personalForm.controls['lastName'].errors?.minlength">
+                {{language['Please_make_your_name_not_less_than_3_letters']}}
+              </div>
+              <div *ngIf="personalForm.controls['lastName'].touched && personalForm.controls['lastName'].errors?.pattern">
+                {{language['Please_make_your_name_doesnt_contain_numbers_or_symbols']}}
+              </div>
+            </div><!--End Validation-text-->
+            <div class="form-group">
+              <label for="email">{{language['email']}} :</label>
+              <input type="email" formControlName="email" id="email" class="form-control">
+            </div><!--End Form-group-->
+            <!-- div to show error -->
+            <div class="validation-text">
+                <div *ngIf="personalForm.controls['email'].touched && personalForm.controls['email'].errors?.required">Please
+                  {{language['enter_your_email']}}
+                </div>
+                <div *ngIf="personalForm.controls['email'].touched && personalForm.controls['email'].errors?.email">Please
+                  {{language['enter_your_email']}}
+                </div>
+            </div><!--End Validation-text-->
+            <div class="form-group">
+              <label for="birthday">{{language['birthday']}} :</label>
+              <input type="date" formControlName="birthday" id="birthday" class="form-control">
+            </div><!--End Form-group-->
+            <div class="form-group">
+              <label for="gender">{{language['gender']}} :</label>
+              <select formControlName="gender" id="gender" class="form-control">
+                <option selected="selected" value="null" disabled>{{language['select_your_gender']}}</option>
+                <option value="m">{{language['male']}}</option>
+                <option value="f">{{language['female']}}</option>
+              </select>
+            </div><!--End Form-group-->
+            <div class="form-group">
+              <label for="phoneNumber">{{language['phone_number']}} :</label>
+              <input type="text" formControlName="phoneNumber" id="phoneNumber" class="form-control">
+            </div><!--End Form-group-->
+            <!-- div to show error -->
+            <div class="validation-text">
+              <div
+                *ngIf="personalForm.controls['phoneNumber'].touched && personalForm.controls['phoneNumber'].errors?.required">
+                {{language['please_enter_your_phone_number']}}
+              </div>
+              <div
+                *ngIf="personalForm.controls['phoneNumber'].touched && personalForm.controls['phoneNumber'].errors?.pattern">
+                {{language['Not_validEGPhoneNumber']}}
+              </div>
+            </div><!--End Validation-text-->
+            <div class="form-group custom-checkbox">
+              <label>
+                {{language['Subscribe_to_newsletter']}}
+                <input type="checkbox" [value]="false" class="custom-checkbox-slider"
+                      formControlName="subscribedToNewsletter">
+                <span>
+                  <i class="fa fa-check"></i>
+                </span>
+              </label>
+            </div><!--End Form-group-->
+            <div class="form-group justify-content-end">
+                <button type="submit" (click)="onSubmit()" [disabled]="personalForm.invalid" class="custom-btn">{{language['save_changes']}}</button>
+            </div><!--End Form-group-->
+          </form>
+          <p *ngIf="dataSentSuccessfully">
+            {{ requestResponse }}
+          </p>
+    </div><!--End box-item=content-->
+  </div><!--End Box-item-->
+
+  <div class="box-item">
+    <div class="box-item-head">
+      {{language['change_password']}}
+    </div>
+    <div class="box-item-content">
+      <form class="inline-form" [formGroup]="chnagePasswordForm">
+          <div class="form-group has-icon">
+            <label for="oldPassword">{{language['current_password']}}:</label>
+            <input type="password" formControlName="oldPassword" id="oldPassword" class="form-control">
+            <span appChangeVisibility>
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+              </span>
+          </div><!--End Form-group-->
+          <!-- div to show error -->
+          <div class="validation-text">
+            <div class="error"
+                *ngIf="chnagePasswordForm.controls['oldPassword'].touched  && chnagePasswordForm.controls['oldPassword'].errors?.required">
+              {{language['please_write_your_password']}}
+            </div>
+            <div class="error"
+                  *ngIf="chnagePasswordForm.controls['oldPassword'].touched  && chnagePasswordForm.controls['oldPassword'].errors?.minlength">
+              {{language['please_make_sure_your_password_is_not_less_than_6_characters']}}
+            </div>
+          </div><!--End Validation-text-->
+          <!-- Div to show errors -->
+          <div class="form-group has-icon">
+            <label for="newPassword">{{language['new_password']}} :</label>
+            <input type="password" formControlName="newPassword" id="newPassword" class="form-control"> 
+            <span appChangeVisibility>
+              <i class="fa fa-eye" aria-hidden="true"></i>
+            </span>
+          </div><!--End Form-group-->
+          <!-- div to show error -->
+          <div class="validation-text">
+            <div class="error"
+                  *ngIf="chnagePasswordForm.controls['newPassword'].touched  && chnagePasswordForm.controls['newPassword'].errors?.required">
+              {{language['please_write_your_password']}} :
+            </div>
+            <div class="error"
+                  *ngIf="chnagePasswordForm.controls['newPassword'].touched  && chnagePasswordForm.controls['newPassword'].errors?.minlength">
+              {{language['please_make_sure_your_password_is_not_less_than_6_characters']}} :
+            </div>
+          </div><!--End Validation-text-->
+          <div class="form-group has-icon">
+            <label for="confirmPassword">{{language['confirmation']}} :</label>
+            <input type="password" formControlName="confirmPassword" id="confirmPassword" class="form-control">
+            <span appChangeVisibility>
+                <i class="fa fa-eye" aria-hidden="true"></i>
+            </span>
+          </div><!--End form-group-->
+          <!-- Div to show errors -->
+          <div class="validation-text">
+            <div class="error"
+            *ngIf="chnagePasswordForm.controls['confirmPassword'].touched  && chnagePasswordForm.controls['confirmPassword'].errors?.required">
+            {{language['please_write_your_password']}}
+          </div>
+          <div class="error"
+              *ngIf="chnagePasswordForm.controls['confirmPassword'].touched  && chnagePasswordForm.controls['confirmPassword'].errors?.minlength">
+          {{language['please_make_sure_your_password_is_not_less_than_6_characters']}}
+          </div>
+
+          <div class="error"
+              *ngIf="chnagePasswordForm.controls['confirmPassword'].dirty && (chnagePasswordForm.get('newPassword').value !== chnagePasswordForm.get('confirmPassword').value)">
+              {{language['please_make_sure_that_your_new_password_like_your_confirm_password']}}          
+          </div>
+
+        </div><!--End validation-text-->
+          
+        <div class="form-group justify-content-end">
+            <button class="custom-btn" type="submit" role="button" (click)="changePasswordForm()" [disabled]="chnagePasswordForm.invalid || (chnagePasswordForm.get('newPassword').value !== chnagePasswordForm.get('confirmPassword').value)">{{language['save_changes']}}</button>
+        </div><!--End Form-group-->
+      </form>
+      <!-- <div *ngIf="makenewPasswordLikeConfirmPassword">
+          {{language['please_make_sure_that_your_new_password_like_your_confirm_password']}}
+        </div>
+        <p #right>{{ responseText }}</p> -->
+    </div><!--End box-item=content-->
+  </div><!--End box-item-->
+</div>

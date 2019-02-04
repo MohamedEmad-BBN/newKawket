@@ -1,0 +1,12 @@
+
+<nav class="page-head" *ngIf="breadcrumbs.length > 0">
+  <div class="container">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item" *ngFor="let breadcrumb of breadcrumbs; let l = last">
+          <a [routerLink]="breadcrumb.url.path" [queryParams]="breadcrumb.url.params">
+            {{ breadcrumb.name }}
+          </a>
+        </li>
+      </ul>
+  </div>
+</nav>

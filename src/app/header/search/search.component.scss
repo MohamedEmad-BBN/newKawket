@@ -1,0 +1,72 @@
+@import "../../../variables";
+
+:host {
+  .search-form {
+    position: relative;
+    width: 70%;
+    margin: auto;
+    .form-control {
+      border: 1px solid #fcb416;
+      border-radius: 30px;
+      height: 40px;
+    }
+    .icon-btn {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      width: 34px;
+      height: 34px;
+      line-height: 34px;
+      text-align: center;
+      padding: 0;
+      border: 0;
+      border-radius: 100%;
+      color: #fff;
+      background-color: #fcb416;
+      cursor: pointer;
+      transition: all .3s ease-in-out;
+      &:hover{
+        background-color: #333333;
+      }
+      [dir="rtl"] &{
+        left: 3px;
+        right: auto;
+      }
+    }
+  }
+  #completionList {
+    position: absolute;
+    top: 42px;
+    width: 100%;
+    padding: 0;
+    border: 1px solid #fcb416;
+    border-radius: 12px;
+    list-style-type: none;
+    background: #fff;
+    z-index: 999;
+    overflow: hidden;
+    li {
+      cursor: pointer;
+      padding: 10px 20px;
+      color: $top-header-background-color;
+      &:not(:last-child) {
+        border-bottom: 1px solid #adadad;
+      }
+      &:first-child {
+        border-top-right-radius: 15px;
+        border-top-left-radius: 15px;
+      }
+      &:last-child {
+        border-bottom-right-radius: 15px;
+        border-bottom-left-radius: 15px;
+      }
+      &:hover {
+        color: #000000;
+        background: #fbfbfb;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

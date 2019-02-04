@@ -1,0 +1,160 @@
+<div *ngIf="product" class="featureProduct"  [routerLink]="['/', language['LANGUAGE_CODE'], 'collection', 'product', product.code]" >
+
+  <!--container-->
+  <div class="container-fluid">
+
+    <!--row-->
+    <div class="row">
+
+
+      <!--col-->
+      <div class="col-lg-6 col-md-6">
+        <!--product image -->
+        <div class="featureProduct__image" [hover]="false" [product]="product" appImage="">
+
+          <!--product hover-->
+          <div class="featureProduct__hover">
+
+            <!--wishlist-->
+            <button
+              *ngIf="wishListFeature$ | async"
+              (click)="$event.stopPropagation();toggleWishList()"
+              [delay]="500"
+              [ngClass]="{active: fav | async}"
+              aria-hidden="true"
+              tooltip="{{language['wishList']}}"
+              class="featureProduct__hover--button featureProduct__hover--wishList">
+              <span>
+                <i  class="fa fa-heart"  aria-hidden="true"></i>
+              </span>
+            </button>
+            <!--wishlist-->
+
+            <!--wishlist-->
+            <button
+              *ngIf="compareFeature$ | async"
+              (click)="$event.stopPropagation(); toggleCompare()"
+              [delay]="500"
+              [ngClass]="{active: compare | async}"
+              [tooltip]="language['compare']"
+              class="featureProduct__hover--button featureProduct__hover--compare">
+              <span>
+                <i  class="fa fa-random"  aria-hidden="true"></i>
+              </span>
+            </button>
+            <!--wishlist-->
+
+          </div>
+          <!--product hover-->
+
+        </div>
+        <!--product image -->
+      </div>
+      <!--col-->
+
+      <!--col-->
+      <div class="col-lg-6 col-md-6">
+        <!--product info-->
+        <div class="featureProduct__info">
+
+          <a class="featureProduct__info--link"[routerLink]="['/',language['LANGUAGE_CODE'],'collection', 'product', product.code]">{{product | translate :
+            'name'}}</a>
+
+          <p class="featureProduct__description">
+            {{ ((product | translate: 'short_description')?.length>20)? ((product | translate: 'short_description') | slice:0:20)+'..':((product | translate: 'short_description')) }}
+          </p>
+
+          <!--product price-->
+          <div class="featureProduct__price">
+
+            <span class="featureProduct__price--original">
+              {{product.variants[0].prices[0].price / 100 | currency :
+              language['egyptianPound']}}
+            </span>
+                <span class="featureProduct__price--sale">
+              {{product.variants[0].prices[0].original_price / 100 | currency : language['egyptianPound']}}
+            </span>
+
+          </div>
+          <!--product price-->
+
+
+          <!--addToCart-->
+          <button (click)="$event.stopPropagation(); openQuickView()" class="featureProduct__button featureProduct__button--addCart">
+            {{language['addToCart']}}
+          </button>
+          <!--addToCart-->
+
+
+
+          <!--mobile hover data-->
+          <div class="featureProduct__mobileHover">
+            <button
+              [routerLink]="['/',language['LANGUAGE_CODE'],'collection', 'product', product.code]" aria-hidden="true"
+              tooltip="{{language['addToCart']}}"
+              class="featureProduct__button featureProduct__button--mobileAddCart">
+              <span>
+                <i  class="fa fa-shopping-cart"  aria-hidden="true"></i>
+              </span>
+            </button>
+            <button
+              *ngIf="wishListFeature$ | async"
+              (click)="$event.stopPropagation(); toggleWishList()" aria-hidden="true"
+              [ngClass]="{active: fav | async}"
+              tooltip="{{language['addToFavorite']}}"
+              class="featureProduct__button featureProduct__button--mobileWishList">
+
+              <span>
+                <i  class="fa fa-heart"  aria-hidden="true"></i>
+              </span>
+            </button>
+          </div>
+          <!--mobile hover data-->
+
+
+
+        </div>
+        <!--product info-->
+      </div>
+      <!--col-->
+
+
+
+    </div>
+    <!--row-->
+
+
+  </div>
+  <!--container-->
+
+
+
+  <!--product attributes-->
+  <ul class="featureProduct__attributes">
+    <li
+      *ngIf="product.discounted"  placement="{{language['DIR']=='rtl'? 'left' : 'right'}}"
+      tooltip="{{language['discount']}}"
+      class="featureProduct__attributes--item featureProduct__attributes--discount">
+      {{(product.variants[0].prices[0].original_price - product.variants[0].prices[0].price) / product.variants[0].prices[0].original_price | percent}}
+    </li>
+    <li
+      *ngIf="product.new"  placement="{{language['DIR']=='rtl'? 'left' : 'right'}}" tooltip="{{language['new']}}"
+      class="featureProduct__attributes--item featureProduct__attributes--new">
+      {{language['new']}}
+    </li>
+    <li
+      *ngIf="product.featured" tooltip="{{language['featureProduct']}}" placement="{{language['DIR']=='rtl'? 'left' : 'right'}}"
+      class="featureProduct__attributes--item featureProduct__attributes--feature">
+      <span class="fa fa-star"></span>
+    </li>
+    <li
+      *ngIf="product.bestseller" class="bestSellers attributes__best" placement="{{language['DIR']=='rtl'? 'left' : 'right'}}"
+      tooltip="{{language['bestSellers']}}"
+      class="featureProduct__attributes--item featureProduct__attributes--best">
+      <span class="fa fa-line-chart"></span>
+    </li>
+  </ul>
+  <!--product attributes-->
+
+
+</div>

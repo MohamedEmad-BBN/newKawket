@@ -1,0 +1,173 @@
+<!-- Side filter-->
+<div class="side-filter" *ngIf="filter && filter.taxons">
+  <!--  Side fiter heading -->
+  <div class="side-filter-head">
+    <div [ngClass]="{'d-none': !mobileFilter}" class="d-md-none hide-filter-button" (click)="mobileFilter = false">
+      <i class="fa fa-times-circle" aria-hidden="true"></i>
+    </div>
+  </div>
+  <!-- Side filter content -->
+  <div class="side-filter-content">
+    <div class="side-item">
+      <div class="side-item-head">
+        <h3 class="side-item-name">{{language['category']}}</h3>
+      </div>
+      <!-- Filter by [taxons] -->
+      <div class="side-item-content">
+        <app-taxon [taxons]="filter.taxons"></app-taxon>
+      </div>
+    </div>
+    <!-- Advanced filter --> 
+    <div class="advanced-filter" *ngIf="advancedFiltersFeature$ | async">
+      <!-- Filter by [price] -->
+      <div class="side-item" *ngIf="this.filter.price_range && this.filter.price_range.min !== this.filter.price_range.max">
+        <div class="side-item-head">
+          <h3 class="side-item-name">{{language['filterBy']}} {{language['price']}}</h3>
+        </div>
+        <div class="side-item-content">
+          <!-- Price range slider -->
+          <div id="slider-range" *ngIf="language['DIR']">
+            <nouislider [config]="{direction: language['DIR']}" [connect]="true" [min]="this.filter.price_range.min / 100"
+              [max]="this.filter.price_range.max / 100" [(ngModel)]="someRange" [step]="1">
+            </nouislider>
+          </div>
+          <!-- Price range values -->
+          <div class="price-range">
+            <span>{{someRange[0] | currency: language['egyptianPound']}}</span>
+
+            <span>{{someRange[1] | currency: language['egyptianPound']}}</span>
+          </div>
+          <!-- Apply filter by [price] btn -->
+          <button class="btn-filter" (click)="collectionService.changeX('price', someRange[0] * 100 + ':' + someRange[1] * 100)">
+            {{language['filter']}}
+          </button>
+        </div>
+      </div>
+      <!-- Filter by [colors] -->
+      <ng-container *ngFor="let option of filter.options">
+        <div class="side-item" *ngIf="option.code === 'color'">
+          <div class="side-item-head">
+            <h3 class="side-item-name">
+              {{language['color']}}}
+            </h3>
+          </div>
+          <div class="side-item-content">
+            <label *ngFor="let color of option.option_values" class="custom-checkbox">
+              <span class="title" [ngStyle]="{background: color.name}"></span>
+              <input type="checkbox" name="attribute.code" value="color.code" [checked]="color.selected" (change)="collectionService.changeFilter('options', option.code, color.code, $event.target.checked)">
+              <span class="icon"><i class="fa fa-check"></i></span>
+            </label>
+          </div>
+          <!--End side-item-content-->
+        </div>
+        <!--End Side-item-->
+
+        <div class="side-item" *ngIf="option.code !== 'color'">
+          <div class="side-item-head">
+            <h3 class="side-item-name">{{option|translate:'name'}}</h3>
+          </div>
+          <div class="side-item-content">
+            <label *ngFor="let optionValue of option.option_values" class="custom-checkbox">
+              <input type="checkbox" [name]="option.code" [value]="optionValue.code" [checked]="optionValue.selected"
+                (change)="collectionService.changeFilter('options', option.code, optionValue.code, $event.target.checked)">
+              <span class="title"> {{optionValue|translate:'name'}}</span>
+              <span class="icon"><i class="fa fa-check"></i></span>
+            </label>
+          </div>
+          <!--End side-item-content-->
+        </div>
+        <!--End Side-item-->
+
+      </ng-container>
+      <ng-container *ngFor="let attribute of filter.attribute">
+        <!-- radio box style -->
+        <div class="side-item" *ngIf="attribute.code !== 'color'">
+          <div class="side-item-head">
+            <h3 class="side-item-name">{{attribute|translate:'name'}}</h3>
+          </div>
+          <div class="side-item-content">
+            <label *ngFor="let attributeValue of attribute.values" class="custom-checkbox">
+              <span class="title">{{attributeValue|translate:'name'}}</span>
+              <input type="checkbox" [name]="attribute.code" [value]="attributeValue.code" [checked]="attributeValue.selected"
+                (change)="collectionService.changeFilter('attributes', attribute.code, attributeValue.code, $event.target.checked)">
+              <span class="icon"><i class="fa fa-check"></i></span>
+            </label>
+          </div>
+        </div>
+        <div class="side-item" *ngIf="attribute.code === 'color'">
+          <div class="side-item-head">
+            <h3 class="side-item-name">{{language['colors']}}}</h3>
+          </div>
+          <div class="side-item-content">
+            <label *ngFor="let color of attribute.values" class="custom-checkbox">&nbsp;
+              <input type="checkbox" name="attribute.code" value="color.code" [checked]="color.selected" (change)="collectionService.changeFilter('attributes', attribute.code, color.code, $event.target.checked)">
+              <span [ngStyle]="{background: color.value}" class="icon">
+                <i class="fa fa-check"></i>
+              </span>
+            </label>
+          </div>
+          <!--End side-item-content-->
+        </div>
+      </ng-container>
+      <!--Filter by [rate] -->
+      <div class="side-item" *ngIf="rates?.length && (reviewsFeature$ | async)">
+        <div class="side-item-head">
+          <h3 class="side-item-name">{{language['rating']}}</h3>
+        </div>
+        <!--End Side-item-head-->
+        <div class="side-item-content">
+          <label class="custom-checkbox" *ngFor="let rate of rates">
+            <ng-container *ngFor="let star of stars" class="title">
+              <i *ngIf="rate >= star" class="fa fa-star" aria-hidden="true"></i>
+              <i *ngIf="rate < star" class="fa fa-star empty" aria-hidden="true"></i>
+            </ng-container>
+            <input type="radio" name="rating" (click)="collectionService.changeX('rating', $event.target.checked && rate)"
+              [checked]="(params$ | async)?.rating == rate">
+            <span class="icon"><i class="fa fa-check"></i></span>
+          </label>
+        </div>
+        <!--End Side-item-content-->
+      </div>
+    </div>
+    <!-- Features filter -->
+    <div class="side-item">
+      <!-- Features filter Title -->
+      <div class="side-item-head">
+        <h3 class="side-item-name">{{language['features']}}</h3>
+      </div>
+      <!-- checkbox filter by [features] -->
+      <div class="side-item-content">
+        <!-- Filter by [discount] -->
+        <label class="custom-checkbox">
+          <span class="title">
+            {{language['discount']}}
+          </span>
+          <input type="checkbox" name="discounted" value="discounted" [checked]="(params$ | async).discounted" (change)="collectionService.changeX('discounted', $event.target.checked)">
+          <span class="icon"><i class="fa fa-check"></i></span>
+        </label>
+        <!-- Filter by [feature] -->
+        <label class="custom-checkbox">
+          <span class="title">
+            {{language['featuredProducts']}}
+          </span>
+          <input type="checkbox" name="featured" value="featured" [checked]="(params$ | async).featured" (change)="collectionService.changeX('featured', $event.target.checked)">
+          <span class="icon"><i class="fa fa-check"></i></span>
+        </label>
+        <!-- Filter by [best seller] -->
+        <label class="custom-checkbox">
+          <span class="title">
+            {{language['bestSellers']}}
+          </span>
+          <input type="checkbox" name="bestseller" value="bestseller" [checked]="(params$ | async).bestseller" (change)="collectionService.changeX('bestseller', $event.target.checked)">
+          <span class="icon"><i class="fa fa-check"></i></span>
+        </label>
+        <!-- Filter by [new products] -->
+        <label class="custom-checkbox">
+          <span class="title">{{language['new']}}</span>
+          <input type="checkbox" name="new" value="new" [checked]="(params$ | async).new" (change)="collectionService.changeX('new', $event.target.checked)">
+          <span class="icon"><i class="fa fa-check"></i></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

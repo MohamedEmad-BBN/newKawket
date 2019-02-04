@@ -1,0 +1,155 @@
+<!--Start Header-->
+<header class="header" [ngClass]="{scrolled: isScrolled}">
+  <!-- Top header -->
+  <div class="top-header">
+    <div class="container d-flex justify-content-between">
+      <!-- Language -->
+      <div class="dropdown language-dropdown" *ngIf="currentLocale">
+        <a class="nav-item">
+          <i class="fa fa-language"></i>
+          <span [ngStyle]="{direction: currentLocale.dir}">{{currentLocale.name}}</span>
+        </a>
+        <ul class="dropdown-menu">
+          <li *ngFor="let availableLanguage of availableLanguages" [ngStyle]="{direction: availableLanguage.dir}">
+            <a [ngClass]="{activated: availableLanguage.code == language['LANGUAGE_CODE']}" [queryParams]="queryParams"
+              [routerLink]="redirectUrls[availableLanguage.code]">
+              {{availableLanguage.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- Top headers links -->
+      <nav>
+        <ul class="top-header-links">
+          <li class="top-header-item" *ngIf="wishListFeature$ | async">
+            <a routerLink="/{{language['LANGUAGE_CODE']}}/wish-list">{{language['wishList']}}</a>
+            <span>{{wishListCounter$ | async}}</span>
+          </li>
+          <li class="top-header-item" *ngIf="compareFeature$ | async">
+            <a routerLink="/{{language['LANGUAGE_CODE']}}/compare">{{language['compare']}}</a>
+            <span>{{compareCounter$ | async}}</span>
+          </li>
+          <ng-template #login>
+            <li class="top-header-item" id="login">
+              <a [routerLink]="['/', language['LANGUAGE_CODE'], 'accounts', 'login']">
+                {{language['login']}}</a>
+              <span>
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </span>
+              </li>
+          </ng-template>
+          <li class="top-header-item" *ngIf="logged$ | async; else login;">
+            <a [routerLink]="['/', language['LANGUAGE_CODE'], 'profile', 'dashboard']">
+              {{userName | async}}</a>
+            <span><i class="fa fa-user" aria-hidden="true"></i></span>
+          </li>
+          <li class="top-header-item" *ngIf="logged$ | async">
+            <a [routerLink]="['/accounts/login']" routerLinkActive="router-link-active" (click)="logout()">
+              {{language['logout']}}
+            </a>
+            <span><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="main-header" id="header--custom">
+    <div class="container">
+      <div class="row no-gutters align-items-center">
+        <div class="d-block d-md-none toggle-side-menu">
+          <button class="navbar-toggler" type="button" (click)="openModal(menu)" aria-controls="navbarNavAltMarkup"
+                  aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span>
+          </button>
+        </div>
+        <!-- Store logo -->
+        <div class="col-lg-3 col-md-5 col-7">
+          <a routerLink="/{{language['LANGUAGE_CODE']}}" class="navbar-brand logo">
+            <img *ngIf="logo$ | async as logo" [src]="logo" alt="logo">
+          </a>
+        </div>
+        <!-- Search products -->
+        <div class="col-lg-7 col-md-6 d-none d-md-block ">
+          <app-search></app-search>
+        </div>
+        <!-- Cart counter and redirect to cart page -->
+        <div class="col-lg-2 col-md-1 col-3 cart-dropdown ">
+          <button class="cart-btn" type="button" routerLink="/{{language['LANGUAGE_CODE']}}/cart">
+            <span>
+              <span>{{ language['cart'] }}</span> {{ cartCounter$ | async }}
+            </span>
+            <i class="fa fa-shopping-cart"></i>
+          </button>
+        </div>
+        <!-- Btn to Toggle sidebar in mobile screens -->
+      </div>
+      <!-- Sidebar in mobile screens -->
+      <nav class="navbar navbar-expand-md navbar-light">
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav categories-list">
+            <li class="nav-item dropdown">
+              <a class="nav-link" routerLink="/{{language['LANGUAGE_CODE']}}/collection">
+                <i class="fa fa-bars text-yellow"></i>
+                <span>{{language['allCategories']}}</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="dropdown" *ngFor="let taxon of taxons" [value]="taxon.code" (click)="taxon.selected = !taxon.selected; $event.stopPropagation()"
+                  [ngClass]="{'mainActive': taxon.selected}" (mouseenter)="taxon.selected = true" (mouseleave)="taxon.selected = false">
+                  <a class="dropdown-item" *ngIf="!taxon.children" routerLink="/{{language['LANGUAGE_CODE']}}/collection"
+                    [queryParams]="{taxons: taxon.code}">
+                    {{ taxon.name }}
+                  </a>
+
+                  <a class="dropdown-item" *ngIf="taxon.children" routerLink="/{{language['LANGUAGE_CODE']}}/collection"
+                    [queryParams]="{taxons: taxon.code}">
+                    {{taxon | translate: 'name'}}
+                    <i class="fa fa-plus"></i>
+                  </a>
+                  <ul class="dropdown-menu children" *ngIf="taxon.children && taxon.selected">
+                    <li class="dropdown" *ngFor="let child of taxon.children" (click)="child.selected = !child.selected; $event.stopPropagation()"
+                      [ngClass]="{'childActive': taxon.selected}" (mouseenter)="child.selected = true" (mouseleave)="child.selected = false">
+                      <a class="dropdown-item" *ngIf="!child.children" routerLink="/{{language['LANGUAGE_CODE']}}/collection"
+                        [queryParams]="{taxons: child.code}">
+                        {{child | translate: 'name'}}
+                      </a>
+
+                      <a class="dropdown-item" *ngIf="child.children">
+                        {{ child.name }}
+                        <i class="fa fa-plus"></i>
+                      </a>
+                      <ul class="dropdown-menu" *ngIf="child.children && child.selected">
+                        <li *ngFor="let child of child.children">
+                          <a class="dropdown-item" routerLink="/{{language['LANGUAGE_CODE']}}/collection" [queryParams]="{taxons: child.code}">{{child|translate:'name'}}</a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="navbar-nav ">
+            <li class="nav-item">
+              <a class="nav-link link--header" [routerLink]="['/', language['LANGUAGE_CODE'], 'collection']">
+                {{language['shop']}}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link--header" [routerLink]="['/', language['LANGUAGE_CODE'], 'contact-us']">
+                {{language['contactUs']}}
+              </a>
+            </li>
+            <li class="nav-item" *ngFor="let staticPage of staticPages">
+              <a class="nav-link link--header" [routerLink]="['/', language['LANGUAGE_CODE'], 'page', staticPage.code]"
+                routerLinkActive="active-link"> {{staticPage | translate:'name'}}</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+<!-- Sidebar component -->
+<ng-template #menu>
+  <app-side-menu [modal]="modalRef"></app-side-menu>
+</ng-template>

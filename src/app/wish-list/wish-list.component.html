@@ -1,0 +1,72 @@
+<div class="wishListBody" *ngIf="wishlist">
+  <!--start wish-list header-->
+  <div class="wishList--header">
+    <section class="container d-flex justify-content-between align-items-center">
+      <h2> {{language['wishList']}}</h2>
+      <button (click)="clearWishList()">{{language['removeAll']}}</button>
+    </section>
+  </div>
+  <!--end wish-list header-->
+
+  <!--start wish-list content-->
+  <div class=" wishList--content mt-5 mb-5">
+    <div class="container" *ngIf="wishlist.length > 0 ; else showmessage">
+      <!--start product wish list-->
+      <div class="product p-4 d-flex justify-content-between align-items-center" *ngFor="let fav of wishlist">
+        <!--start img section-->
+        <div class="product--img" appImage="" [product]="fav">
+        </div>
+        <!--end img section-->
+        <!--start product name section-->
+        <section class="pt-3 pt-md-0">
+          <h3 class="h3--custom">
+            <a [routerLink]="['/',language['LANGUAGE_CODE'],'collection', 'product', fav.code]" class="text-decoration-none">{{
+              fav.name }}</a>
+          </h3>
+        </section>
+        <!--end product name section-->
+        <!--start price section-->
+        <div>
+          <div class="product--original--price" *ngIf="fav.variants[0].prices[0].original_price">
+            {{fav.variants[0].prices[0].original_price/100 }} {{language['egyptianPound']}}
+          </div>
+          <div>{{ fav.variants[0].prices[0].price/100 }} {{language['egyptianPound']}}</div>
+        </div>
+        <!--end price section-->
+        <!--start quick view on desktop-->
+        <div class="quick-view-button d-none d-md-block">
+          <button (click)="openQuickView(fav)">{{language['quickView']}}
+            <i class="fa fa-shopping-cart ml-1"></i>
+          </button>
+        </div>
+        <!--end quick view on desktop-->
+        <!--start quick view on mobile-->
+        <div class="quick-view-button d-block d-md-none pt-2 pt-md-0">
+          <button [routerLink]="['/', language['LANGUAGE_CODE'], 'collection', 'product', fav.code]">{{language['quickView']}}
+            <i class="fa fa-shopping-cart"></i>
+          </button>
+        </div>
+        <!--start quick view on mobile-->
+        <!--start remove wish list button-->
+        <div class="remove--icon">
+          <button (click)="removeFromWishlist(fav.code)">
+            X
+          </button>
+        </div>
+        <!--start remove wish list button-->
+      </div>
+      <!--start product wish list-->
+    </div>
+    <!--end container-->
+    <ng-template #showmessage>
+      <div class="wishlist--empty text-center p-3 container " id="init-cart">
+        <i class="fa fa-heart-o"></i>
+        <span class="help-text">{{language['emptyWishList']}}</span>
+      </div>
+      <div class="empty--button text-center">
+        <a [routerLink]="['/', language['LANGUAGE_CODE'], 'collection']">{{language['continueShopping']}}</a>
+      </div>
+    </ng-template>
+  </div>
+  <!--end wish-list content-->
+</div>

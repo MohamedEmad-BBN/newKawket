@@ -1,0 +1,60 @@
+@import '../../../variables.scss';
+
+.address-book{
+      position: relative;
+      padding: 10px;
+      background-color: #f5f5f5;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      .address-item{
+            margin-bottom: 10px;
+            overflow: hidden;
+            text-transform: capitalize;
+            display: flex;justify-content: space-between;
+
+            span{
+                  &:first-child{
+                        font-weight: bold;
+                  }
+                  &:last-child{
+                        float: right;
+                        [dir=rtl] &{
+                              float: left;
+                        }
+                  }
+            }
+      }
+}
+.btn{
+      background-color: #0099ff;
+      margin: 0 5px;
+      color: #fff;
+      text-transform: capitalize;
+      font-size: 14px;
+      border-radius: 2px;
+      padding: 3px 10px;
+      box-shadow: none;
+      border: 0;
+      transition: all .2s ease-in-out;
+      &:hover{
+            background-color: #007bff;
+      }
+      &.btn-delete{
+            background-color: #bd2130;
+      }
+}
+.no-address{
+      padding: 30px;
+      text-align: center;
+      text-transform: capitalize;
+      font-size: 24px;
+}
+.sm-gutters {
+      margin-right: 7.5px;
+      margin-left: 7.5px;
+      > .col,
+      > [class*="col-"] {
+      padding-right: 7.5px;
+      padding-left: 7.5px;
+      }
+}

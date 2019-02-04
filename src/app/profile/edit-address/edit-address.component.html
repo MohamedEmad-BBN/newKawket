@@ -1,0 +1,131 @@
+<div class="dashboard-content">
+    <div class="box-item">
+        <div class="box-item-head">
+          {{language['editAddress']}}
+        </div>
+        <div class="box-item-content">
+            <form class="inline-form" [formGroup]="editAddressForm" (ngSubmit)="editAddress()">
+                <div class="form-group">
+                  <label>{{language['firstName']}}</label>
+                  <input type="text" name="firstName" id="firstName" class="form-control"
+                  placeholder="{{language['firstName']}}" formControlName="firstName">
+                </div><!--End Form-group-->
+                <div class="form-group">
+                  <label>{{language['lastName']}}</label>
+                  <input type="text" name="lastName" id="lastName" class="form-control" placeholder="{{language['lastName']}}"
+                     formControlName="lastName">
+                </div><!--End Form-group-->
+                <!-- <div class="form-group">
+                  <label>{{language['company']}}</label>
+                  <input type="text" name="company" id="company" class="form-control" placeholder="{{language['company']}}"
+                         formControlName="company">
+                </div> -->
+        
+                <div class="form-group">
+                  <label>{{language['phone_number']}}</label>
+                  <input type="text" name="phoneNumber" id="phoneNumber" class="form-control"
+                         placeholder="{{language['phone_number']}}" formControlName="phoneNumber">
+                </div><!--End Form-group-->
+        
+                <div class="form-group">
+                  <label>{{language['street']}}</label>
+                  <input type="text" name="street" id="street" class="form-control" placeholder="{{language['street']}}"
+                         formControlName="street">
+                </div><!--End Form-group-->
+        
+                <div class="form-group">
+                  <label>{{language['street']}}</label>
+                  <select name="countryCode" id="countryCode" class="form-control" formControlName="countryCode"
+                          (change)="updateAddressingCities($event.target.value)">
+                    <option value="">{{language['country']}}</option>
+                    <option *ngFor="let country of countries">{{country.code}}</option>
+                  </select>
+                </div><!--End Form-group-->
+
+                <div class="form-group">
+                  <label>{{language['city']}}</label>
+                  <select name="cityName" id="cityName" class="form-control" formControlName="cityName">
+                    <option value="">{{language['city']}}</option>
+                    <option *ngFor="let city of cities">{{city.name}}</option>
+                  </select>
+                </div><!--End Form-group-->
+                <div class="form-group justify-content-end">
+                    <input type="submit" value="{{language['editAddress']}}" class="custom-btn"
+                    [disabled]="!editAddressForm.valid">
+                </div><!--End Form-group-->
+              </form>
+              <div class="errors">
+                <div *ngFor="let error of errors" class="alert alert-danger">{{error}}</div>
+              </div>
+        </div><!--End box-item=content-->
+      </div><!--End box-item-->
+  </div><!--End dashboard-content-->
+
+
+
+
+<!-- 
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+      <form [formGroup]="editAddressForm" (ngSubmit)="editAddress()">
+        <h2>edit address</h2>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <input type="text" name="firstName" id="firstName" class="form-control input-lg"
+                     placeholder="First Name" formControlName="firstName">
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <input type="text" name="lastName" id="lastName" class="form-control input-lg" placeholder="Last Name"
+                     formControlName="lastName">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">-->
+        <!--<input type="text" name="company" id="company" class="form-control input-lg" placeholder="company" formControlName="company">-->
+        <!--</div>-->
+
+        <!-- <div class="form-group">
+          <input type="text" name="street" id="street" class="form-control input-lg" placeholder="Street"
+                 formControlName="street">
+        </div>
+
+        <div class="form-group">
+          <input type="text" name="phoneNumber" id="phoneNumber" class="form-control input-lg"
+                 placeholder="phone number"
+                 formControlName="phoneNumber">
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <select name="countryCode" id="countryCode" class="form-control input-lg" formControlName="countryCode"
+                      (change)="updateAddressingCities($event.target.value)">
+                <option value="">country</option>
+                <option *ngFor="let country of countries">{{country.code}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <select name="cityName" id="cityName" class="form-control input-lg" formControlName="cityName">
+                <option value="">city</option>
+                <option *ngFor="let city of cities">{{city.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <input type="submit" value="edit address" class="btn btn-primary btn-block btn-lg"
+               [disabled]="!editAddressForm.valid">
+      </form>
+    </div>
+  </div>
+  <div class="row errors">
+    <div *ngFor="let error of errors" class="alert alert-danger">{{error}}</div>
+  </div>
+</div> --> 

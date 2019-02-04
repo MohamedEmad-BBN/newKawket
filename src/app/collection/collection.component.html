@@ -1,0 +1,66 @@
+<div class="collection__spinner" *ngIf="loading">
+  <!-- Loading -->
+  <div class="lds-ellipsis">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+<ng-container *ngIf="!loading">
+  <div class="container-fluid p-0 m-0 sortby">
+    <div class="container">
+      <div class="tools d-md-block d-flex">
+        <div class="d-md-none show-filter-button col-6 px-1 px-sm-3" (click)="mobileFilter = !mobileFilter">
+          <span>{{language['filter']}}</span>
+        </div>
+        <div class="sort col-6 px-1 px-sm-3" [ngClass]="{'text-left': language['DIR'] === 'rtl'}">
+          <label>
+            <select (change)="collectionService.changeSort(sortOptions[$event.target.value].sort, sortOptions[$event.target.value].order)">
+              <option *ngFor="let sort of sortOptions; let i = index;" [value]="i" [selected]="params['sort'] == sort.sort && params['order'] == sort.order">
+                {{sort.name}}
+              </option>
+            </select>
+            <span>
+                <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="collection__container">
+    <!-- If products found -->
+    <div class="container-fluid product-list" *ngIf="showProducts; else noProduct">
+      <div class="container">
+        <div class="row">
+          <div [ngClass]="{'d-none': !mobileFilter}" class="col-md-3 d-md-block">
+            <app-filter></app-filter>
+          </div>
+          <!-- List of products -->
+          <div [ngClass]="{'d-none': mobileFilter}" class="col-md-9 d-md-block">
+            <div class="list">
+              <div class="row" [@listAnimation]="products.length">
+                <div *ngFor="let product of products" class="col-xl-4 col-lg-4 col-sm-6 p-2 m-0">
+                  <app-product [product]="product"></app-product>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <!-- Pagination -->
+            <div class="pagination-container">
+              <pagination [totalItems]="pages_count.length" [itemsPerPage]="1" [maxSize]="4" [boundaryLinks]="true"
+                (pageChanged)="pageChanged($event)" [(ngModel)]="page"></pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- If no products found -->
+    <ng-template #noProducts>
+      <div class="noProductFound" >
+        <p>There is no product to show <a routerLink="/collection">,Back To Categories</a></p>
+      </div>
+    </ng-template>
+  </div>
+</ng-container>

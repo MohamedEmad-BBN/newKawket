@@ -1,0 +1,344 @@
+@import "../../variables";
+
+:host {
+  position: relative;
+  .product-list {
+    background-color: $background-color;
+    padding: 20px 0;
+  }
+
+  .list {
+    background-color: $background-color;
+  }
+
+  // the collection head
+
+  .breadcrumb {
+    width: 100%;
+    border-top: 1px solid $border-color;
+    border-radius: 0;
+    height: 74px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+
+    [dir=rtl] & {
+      text-align: right;
+    }
+
+    a {
+      color: $main-color;
+      text-transform: uppercase;
+    }
+
+    span:last-child a {
+      font-weight: bold;
+    }
+  }
+
+  .hide-filter-button {
+    color: red;
+    position: absolute;
+    font-size: 25px;
+    right: 25px;
+    cursor: pointer;
+
+    [dir=rtl] & {
+      right: initial;
+      left: 25px;
+    }
+  }
+
+  .container {
+    position: relative;
+  }
+
+  .sortby {
+    background-color: #F5F5F5;
+
+    .tools {
+      min-height: 36px;
+      padding: 15px 0;
+      // position: absolute;
+      top: 25px;
+      right: 15px;
+      text-align: right;
+
+      @media (max-width: 768px) {
+        position: initial;
+        //margin-bottom: 20px;
+      }
+
+      [dir=rtl] & {
+        right: initial;
+        left: 15px;
+      }
+
+      >div {
+        float: right;
+        margin-left: 10px;
+
+        [dir=rtl] & {
+          float: left;
+          //margin-left: 0;
+          //margin-right: 10px;
+          left: 0;
+
+          @media(max-width: 767px) {
+            float: none;
+          }
+        }
+
+
+        @media(max-width: 767px) {
+          float: none;
+        }
+
+
+        span,
+        label {
+          text-align: center;
+          border: 1px solid $border-color;
+          border-radius: 2em;
+          height: 26px;
+          line-height: 26px;
+          z-index: 100;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        label {
+          height: 36px;
+        }
+
+        >span {
+          cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+          float: none;
+          margin: 0;
+          padding: 10px 0;
+
+          span,
+          label {
+            display: inline-block;
+            width: 100%;
+          }
+        }
+      }
+
+      .sort {
+        label {
+          margin: 0;
+          position: relative;
+
+          select {
+            background: transparent;
+            border: none;
+            //border-radius: 2em;
+            padding: 0 30px 0 20px;
+            appearance: none;
+            /* for future */
+            -moz-appearance: none;
+            /* for Chrome */
+            -webkit-appearance: none;
+            height: 36px;
+            text-transform: capitalize;
+            font-weight: 600;
+
+            [dir=rtl] & {
+              padding-right: 20px;
+              padding-left: 30px;
+              left: 0;
+            }
+
+            &:focus {
+              outline: none;
+              box-shadow: unset;
+
+            }
+          }
+
+          i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $orange-color;
+            font-size: 24px;
+            font-weight: bold;
+            pointer-events: none;
+
+            [dir=rtl] & {
+              right: initial;
+              left: 10px;
+            }
+          }
+        }
+      }
+
+      .show-filter-button {
+        height: 36px;
+        line-height: 1;
+        margin-bottom: 25px;
+
+        span {
+          height: 36px;
+          line-height: 36px;
+          font-weight: 600;
+          font-size: 18px;
+        }
+      }
+
+    }
+  }
+}
+
+.show-filter-button {
+  //position: fixed;
+  //bottom: 10px;
+  //left: 10px;
+  //z-index: 1000;
+  //opacity: 0.6;
+  //&:hover{
+  //  opacity: 1;
+  //}
+}
+// .pagination {
+//   .page-link {
+//     border-radius: 50%;
+//     height: 40px;
+//     width: 40px;
+//     text-align: center;
+//     font-weight: 600;
+//     font-size: 18px;
+//     margin-right: 10px;
+//     background: #FFF;
+//     color: #000;
+//     font-weight: 600;
+//     &:focus {
+//       box-shadow: unset;
+//     }
+//   }
+//   .page-item.active .page-link {
+//     border: 1px solid $orange-color;
+//   }
+
+// }
+.collection__spinner {
+  position: relative;
+  // background: #F5F5F5;
+  min-height: 50vh;
+  width: 100%;
+
+  .lds-ellipsis {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .lds-ellipsis div {
+    position: absolute;
+    top: 27px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #000;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+
+  .lds-ellipsis div:nth-child(1) {
+    left: 6px;
+    animation: lds-ellipsis1 0.6s infinite;
+  }
+
+  .lds-ellipsis div:nth-child(2) {
+    left: 6px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+
+  .lds-ellipsis div:nth-child(3) {
+    left: 26px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+
+  .lds-ellipsis div:nth-child(4) {
+    left: 45px;
+    animation: lds-ellipsis3 0.6s infinite;
+  }
+
+  @keyframes lds-ellipsis1 {
+    0% {
+      transform: scale(0);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes lds-ellipsis3 {
+    0% {
+      transform: scale(1);
+    }
+
+    100% {
+      transform: scale(0);
+    }
+  }
+
+  @keyframes lds-ellipsis2 {
+    0% {
+      transform: translate(0, 0);
+    }
+
+    100% {
+      transform: translate(19px, 0);
+    }
+  }
+}
+
+
+// /deep/ .page-item.active a.page-link {
+//   background-color: $orange-color;
+//   border-color: $orange-color;
+// }
+
+// /deep/ .page-item:not(.active) a.page-link {
+//   color: $main-color
+// }
+
+// /deep/ .page-item.disabled a.page-link {
+//   color: #999
+// }
+
+.noProductFound {
+  background: transparent;
+  position: relative;
+  min-height: 500px;
+
+  p {
+    position: absolute;
+    top: 40%;
+    background: #fff;
+    padding: 20px 40px;
+    border-radius: 15px;
+    box-shadow: 0px 2px 2px -2px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+
+    a {
+      font-weight: 600;
+      color: #fcb416;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}

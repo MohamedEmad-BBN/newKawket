@@ -1,0 +1,103 @@
+<div class="compare-page">
+  <div class="compare-page-head">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-6">
+          <p class="header-title"> {{language['compare']}}</p>
+        </div>
+        <div class="col-6">
+          <div class="header-buttons" *ngIf="products && products.length > 0 ">
+            <button class="custom-btn">{{language['remove']}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" *ngIf="products && products.length > 0 ; else showMessage">
+    <div class="row sm-gutters">
+      <!-- Compare attributes -->
+      <div class="col-lg-3 d-none d-lg-block">
+        <div class="compare-column">
+          <div class="compare-column-head">
+            <span>{{products.length}} </span> &nbsp; {{language['products']}}
+          </div>
+          <div class="compare-column-content">
+            <ul class="compare-options">
+              <li>
+                <span>{{language['price']}}</span>
+              </li>
+              <li *ngFor="let option of options">
+                <span>{{option | translate: 'name'}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Compare items -->
+      <div class="col-lg-9">
+        <div class="row sm-gutters compare-products">
+          <div class="col-lg-4 col-md-5 col-sm-6 col-12" *ngFor="let product of products">
+            <div class="compare-item">
+              <div class="compare-item-head">
+                <!-- Quick view div  -->
+                <div class="compare-item-hover">
+                  <button (click)="openQuickView(product)" class="custom-btn d-none d-md-inline">
+                    {{language['quickView']}}
+                  </button>
+                  <a class="icon-btn d-inline d-md-none" [routerLink]="['/', language['LANGUAGE_CODE'], 'collection', 'product', product.code]">
+                    <i class="fa fa-cart"></i>
+                    <span>{{language['addToCart']}}</span>
+                  </a>
+                  <button class="remove" (click)="removeCompare(product.code)">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <!-- Product img -->
+                <div class="compare-item-img">
+                  <div appImage="" [product]="product"></div>
+                </div>
+                <!-- Product name -->
+                <p class="compare-item-name">
+                  <a [routerLink]="['/', language['LANGUAGE_CODE'], 'collection', 'product', product.code]">
+                    {{product | translate:'name'}}
+                  </a>
+                </p>
+              </div>
+              <div class="compare-item-content">
+                <ul class="compare-item-specs">
+                  <!-- Product price -->
+                  <li>
+                    <span> {{product.variants[0].prices[0].price / 100 | currency:language['egyptianPound']}}</span>
+                  </li>
+                  <!-- Product options -->
+                  <li *ngFor="let option of options">
+                    <ng-container *ngIf="optionValues[product.code][option.code].length == 0">-</ng-container>
+                    <ng-container *ngFor="let optionValue of optionValues[product.code][option.code]; let first = first;">
+                      <ng-container *ngIf="!first">,</ng-container>
+                      {{optionValue | translate: 'name'}}
+                    </ng-container>
+                    <span></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- If compare is empty -->
+  <ng-template #showMessage>
+    <div class="empty-compare">
+      <div class="container">
+        <div class="empty-item">
+          <i class="fa fa-random"></i>
+          <span class="help-text">{{language['compareEmpty']}}</span>
+        </div>
+        <div class="text-center">
+          <a class="custom-btn reversed" routerLink="/collection">{{language['continueShopping']}}</a>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

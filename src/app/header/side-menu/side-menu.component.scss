@@ -1,0 +1,157 @@
+@import "../../../variables";
+
+:host {
+  .modal-header {
+    display: block;
+    border: 0;
+    border-radius: 0;
+    background: #1a1a1a;
+    overflow: hidden;
+    padding: 15px;
+    .close-btn {
+      padding: 1px;
+      float: right;
+      width: 36px;
+      height: 36px;
+      border: 2px solid #fcb416;
+      border-radius: 50%;
+      cursor: pointer;
+      background: #1a1a1a;
+      .fa-times {
+        width: 28px;
+        padding: 6px;
+        border-radius: 50%;
+        background: #fcb416;
+      }
+    }
+    .fa-home {
+      margin-right: 20px;
+      font-size: 42px;
+      color: $background-color;
+    }
+    .logo {
+      display: block;
+      float: left;
+      width: 150px;
+      img {
+        width: 180px;
+      }
+    }
+  }
+  .modal-body {
+    padding: 0;
+    background: #e6e6e6;
+    ul {
+      list-style-type: none;
+      margin-bottom: 0;
+    }
+    ul.navbar-nav {
+      background: #e6e6e6;
+      li {
+        a{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: #000;
+          background-color: #fff;
+          border-bottom: 1px solid #ddd;
+          padding: 12px 10px;
+          font-size: 16px;
+          font-weight: 600;
+          text-transform: capitalize;
+          i{
+            font-size: 16px;
+            width: 50px;
+            height: 100%;
+            text-align: center;
+            transition: all .3s ease-in-out;
+            &:hover,
+            &:focus{
+              color: #fcb416;
+            }
+          }
+        }
+        &.mainActive{
+          .dropdown-menu{
+            display: block;
+            border: 0;
+            padding: 0;
+            a{
+              background-color: $background-color;
+              padding-left: 20px;
+              [dir="rtl"] &{
+                padding-right: 20px;
+                padding-left: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .header-icons{
+    .header-icons-item{
+      a{
+        position: relative;
+        background-color: #fff;
+        text-transform: capitalize;
+        font-size: 18px;
+        color: #000;
+        display: block;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        i{
+          width: 40px;
+          height: 40px;
+          line-height: 40px;
+          text-align: center;
+          background-color: #fcb416;
+          color: #000;
+          border-radius: 50%;
+          font-size: 20px;
+          margin-right: 10px;
+          [dir="rtl"] &{
+            margin-right: auto;
+            margin-left: 10px;
+          }
+        }
+        span.label{
+          position: absolute;
+          left: 30px;
+          top: 0;
+          width: 20px;
+          height: 20px;
+          line-height: 20px;
+          text-align: center;
+          font-size: 12px;
+          background-color: #0099ff;
+          border-radius: 100%;
+          color: #fff;
+          [dir="rtl"] &{
+            left: auto;
+            right: 30px;
+          }
+        }
+      }
+    }
+  }
+
+  ::ng-deep {
+    .dropdown-menu{
+      display: block;
+      position: static;
+      float: none;
+      border: 0;
+      margin: 0;
+      padding: 0;
+    }
+    .search-form{
+      width: 100%!important;
+      .form-control{
+        border-radius: 0!important;
+        font-size: 20px;
+        border: 1px solid transparent;
+      }
+    }
+  }
+}

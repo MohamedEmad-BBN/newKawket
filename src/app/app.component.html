@@ -1,0 +1,26 @@
+<!-- If store is available -->
+<ng-container *ngIf="!(notAvaliableStore$ | async); else notAvailStore">
+    <div id="wrapper">
+      <app-loader></app-loader>
+      <!-- Header component -->
+      <app-header [ngClass]="{'d-none': HideHeaderFooter}"></app-header>
+      <!-- Breadcrumb component -->
+      <app-breadcrumb [ngClass]="{'d-none': HideHeaderFooter}"></app-breadcrumb>
+      <main id="content">
+        <router-outlet></router-outlet>
+      </main>
+        <!-- Footer component -->
+        <app-footer [ngClass]="{'d-none': HideHeaderFooter}"></app-footer>
+        <!-- Model [Quick view] -->
+        <div #staticModal="bs-modal" aria-labelledby="dialog-child-name" bsModal class="modal fade" role="dialog"
+          tabindex="-1">
+          <app-quick-view (myEvent)="closeQuickView()" *ngIf="quickView" [product]="quickView"></app-quick-view>
+        </div>
+    </div>
+  </ng-container>
+  <!-- If store is not available -->
+  <ng-template #notAvailStore>
+    <main class="container">
+      <app-store-not-available></app-store-not-available>
+    </main>
+  </ng-template>

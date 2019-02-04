@@ -1,0 +1,43 @@
+<span class="tag-container clear-all"
+      *ngIf="taxons.length > 0 || params?.q || price || tags.length > 0 || designers.length > 0">
+  <a [routerLink]="['/', language['LANGUAGE_CODE'], 'collection']" class="tag-values">{{language['clearAll']}}</a>
+</span>
+<p class="tag-container" *ngIf="taxons.length > 0">
+  <span class="tag-name">{{language['categories']}}</span>
+  <span *ngFor="let taxon of taxons" class="tag-values">
+    <span class="filtered-name">{{taxonsArray[taxon] | translate: 'name'}}</span>
+    <span class="close-tag" (click)="removeTaxon(taxon)">×</span>
+  </span>
+</p>
+
+<!--<p class="tag-container" *ngIf="designers.length > 0">-->
+<!--<span class="tag-name">Designers </span>-->
+<!--<span *ngFor="let designer of designers" class="tag-values">-->
+<!--<span class="filtered-name">{{designersArray[designer]}}</span>-->
+<!--<span class="close-tag" (click)="removeDesigner(designer)">×</span>-->
+<!--</span>-->
+<!--</p>-->
+
+<p class="tag-container" *ngIf="params?.q">
+  <span class="tag-name">{{language['search']}}</span>
+  <span class="tag-values">
+    <span class="filtered-name">{{params.q}}</span>
+    <span class="close-tag" (click)="removeX('q')">×</span>
+  </span>
+</p>
+
+<p class="tag-container" *ngIf="price">
+  <span class="tag-name">{{language['price']}}</span>
+  <span class="tag-values">
+    <span class="filtered-name">{{price}}</span>
+    <span class="close-tag" (click)="removeX('price')">×</span>
+  </span>
+</p>
+
+<p *ngFor="let tag of tags" class="tag-container">
+  <span class="tag-name">{{tag.key}}s</span>
+  <span *ngFor="let value of tag.values" class="tag-values">
+    <span class="filtered-name">{{value.name}}</span>
+    <span class="close-tag" (click)="remove(tag.type ,tag.key, value.code)">×</span>
+  </span>
+</p>

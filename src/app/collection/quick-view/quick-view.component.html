@@ -1,0 +1,121 @@
+<div class="modal-dialog modal-dialog-centered modal-md">
+  <div class="modal-content">
+    <!-- Close the model -->
+    <div class="modal-header p-0">
+      <button (click)="myEvent.emit()" aria-label="Close" class="close" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!-- Model content -->
+    <div class="modal-body p-0">
+      <div class="container-fluid">
+        <!--Spinner loading-->
+        <div class="collection__spinner" *ngIf="!selectedVariant">
+          <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <!-- Quick view content -->
+        <div class="quickview_product" *ngIf="selectedVariant">
+          <div class="row sm-gutters">
+            <!--Image of product-->
+            <div class="col-md-5">
+              <div class="quickview_product-img" appImage="" [product]="product"></div>
+            </div>
+            <!--Product info-->
+            <div class="col-md-7">
+              <div class="quickview_product-content">
+                <!-- Product name -->
+                <div>
+                  <h4 class="modal-title" id="dialog-child-name">
+                    <a class="product-title" (click)="myEvent.emit()" [routerLink]="['/', language['LANGUAGE_CODE'], 'collection', 'product', product.code]">
+                      {{product | translate : 'name'}}
+                    </a>
+                  </h4>
+                </div>
+                <div class="rating--icons">
+                    <!-- Rating product -->
+                  <div class="product-rating" *ngIf="reviewsFeature$ | async">
+                    <rating [(ngModel)]="rate" [max]="maxRate" [readonly]="true">
+                    </rating>
+                  </div>
+                  <div>
+                    <!-- Add to wishlist btn -->
+                    <button *ngIf="wishListFeature$ | async" class="icon-btn" (click)="toggleWishList()">
+                      <i class="fa fa-heart icon--hover" [ngClass]="{'active': fav | async}" aria-hidden="true"></i>
+                    </button>
+                    <!-- Add to compare btn -->
+                    <button *ngIf="compareFeature$ | async" class="icon-btn" (click)="toggleCompare()">
+                      <i class="fa fa-random icon--hover" [ngClass]="{ 'active' : compare | async}" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- Product description -->
+                <div class="description--code">
+                  <p class="product-code">
+                    <strong>SKU: </strong>{{ product.code }}
+                  </p>
+                  <!-- Short description for the product -->
+                  <p class="product-short-desc">{{product | translate: 'short_description'}}</p>
+                </div>
+                <!-- Actions to the product [quantity, options] -->
+                <div class="product-actions">
+                  <div class="product-options" *ngFor="let option of product.options">
+                    <div class="form-group">
+                      <div class="row pt-3">
+                        <div class="col-4 d-flex align-items-center">
+                          <label class="m-0">{{option | translate: 'name'}}</label>
+                        </div>
+                        <div class="col-8">
+                          <select class="form-control" [(ngModel)]="options[option.code]" (change)="optionChanged(option.code, $event.target.value)"
+                            title="{{option | translate: 'name'}}">
+                            <option value="">{{language['selectA']}} {{option | translate: 'name'}}</option>
+                            <option *ngFor="let variant of option.option_values" [value]="variant.code">
+                              {{variant | translate: 'name'}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <!--End Form-group-->
+                  </div>
+                  <!--End Options-->
+                  <div class="product-price row m-0">
+                    <div class="col-3 pl-0">
+                      <span class="text-uppercase">{{language['price']}}</span>
+                    </div>
+                    <div class="current--original col-9 p-0 text-center">
+                      <span class="current-price pr-3">
+                        {{selectedVariant.prices[0].price / 100 | currency: language['egyptianPound']}}
+                      </span>
+                      <span class="original-price" *ngIf="product.discounted">
+                        {{selectedVariant.prices[0].original_price / 100 | currency: language['egyptianPound']}}
+                      </span>
+                    </div>
+                  </div>
+                  <!--End Product-price-->
+                </div>
+              </div>
+              <div class="btn--quantity pt-4 row m-0">
+                <div class="form-group col-4 ">
+                  <input class="form-control" type="number" [(ngModel)]="quantity" (change)="quantityChanged()" min="1"
+                    [max]="max" [disabled]="disableQuantity" title="quantity">
+                </div>
+                <!--End Form-group-->
+                <div class="form-group col-8 p-0">
+                  <button class="custom-btn w-100" (click)="addToCart()" [disabled]="!canAddToCart">
+                    {{canAddToCart ? language['addToCart'] : language['outOfStock']}}
+                  </button>
+                </div>
+                <!--End Form-group-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

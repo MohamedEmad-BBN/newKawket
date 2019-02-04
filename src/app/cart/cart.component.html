@@ -1,0 +1,138 @@
+<section class="cart-page-section">
+  <div class="container">
+    <div class="cart-page" *ngIf="cart$ | async as cart">
+      <div class="cart-content">
+        <div class="cart-item-wrap" *ngIf="cart.items?.length > 0 ; else showmessage">
+          <div class="cart-item" *ngFor="let item of cart.items">
+            <div class="cart-item-head">
+              <div class="cart-item-img">
+                <div class="img" appImage=""
+                     [product]="item.variant.product"></div>
+              </div><!--End cart-item-img-->
+              <div class="cart-item-name">
+                <a [routerLink]="['/', language['LANGUAGE_CODE'], 'collection', 'product', item.variant.product.code]"
+                   class="cart-title" title="{{item.variant.product | translate: 'name'}}">
+                  {{ item.variant.product | translate: 'name' }}
+                </a>
+                <p class="short-desc">
+                  Extra large - 55 - black
+                </p>
+              </div><!--End Cart-item-name-->
+              <div class="cart-item-action">
+                <button class="text-btn removeItem" (click)="removeItem(item.variant.code)">
+                  {{language['remove']}}
+                  <!-- <span  aria-hidden="true">×</span> -->
+                </button>
+                <button *ngIf="wishListFeature$ | async"  class="text-btn" (click)="toggleWishList(item.variant.product.code)">
+                  {{(isFav(item.variant.product.code) |async) ?  language['removeFromFavorite'] : language['addToFavorite']}}
+                </button>
+              </div><!--End Cart-item-action-->
+            </div><!--End Widget-head-->
+            <div class="cart-item-content">
+              <div class="cart-item-price">
+                <span class="item-price">{{ item.total / item.quantity / 100 | currency: language['egyptianPound']}}</span>
+                <span class="item-price original-price" *ngIf="item.unitPrice * item.quantity - item.total">
+                          {{ item.unitPrice / 100 | currency: language['egyptianPound']}}
+                      </span>
+
+                <!-- <span class="item-price discount" *ngIf="((item.unitPrice * item.quantity) - item.total) > 0">
+                  {{language['discount']}}:
+                  {{((item.unitPrice * item.quantity) - item.total ) / 100 | currency: language['egyptianPound'] }}
+                </span> -->
+                <p class="offer-message" *ngIf="item.unitPrice * item.quantity - item.total">
+                  {{language['congratulations_cart']}} {{(item.unitPrice * item.quantity - item.total) / (item.unitPrice * item.quantity) | percent}}
+                  {{language['discount']}}
+                </p>
+              </div><!--End Crt-item-price-->
+              <div class="cart-item-number">
+                <button class="number-down"
+                        (click)="(quantity[item.id] == 1) ? quantity[item.id] = 1 : quantity[item.id] = quantity[item.id] - 1; quantityChanged(item)"
+                >
+                  <i class="fa fa-minus"></i>
+                </button>
+                <input class="form-control cart-count"
+                       [(ngModel)]="quantity[item.id]"
+                       title="quantity"
+                       [max]="item.variant.tracked ? item.variant.channelStocks.WEB?.stock : null"
+                       type="number"
+                       min="1"
+                       placeholder="quantity"
+                       (change)="quantityChanged(item)"
+                >
+                <ng-container *ngIf="quantity[item.id] === item.variant.channelStocks.WEB?.stock">
+                  <p class="text-truncate">{{language['max_quantity']}}  {{item.variant.channelStocks.WEB.stock}}</p>
+                </ng-container>
+                <button
+                  (click)="(quantity[item.id] == item.variant.channelStocks.WEB?.stock) ? quantity[item.id] = item.variant.channelStocks.WEB.stock : quantity[item.id] = quantity[item.id] + 1; quantityChanged(item)"
+                  class="number-up"
+                  [disabled]="item.variant.tracked && quantity[item.id] == item.variant.channelStocks.WEB.stock"
+                >
+                  <i class='fa fa-plus'></i>
+                </button>
+              </div><!--End Crt-item-number-->
+              <div class="cart-item-total">
+
+                        <span class="total">
+                            {{language['total']}}:
+                        </span>
+                <span class="price">{{ item.total / 100 | currency: language['egyptianPound']}}</span>
+              </div><!--End Cart-item-total-->
+            </div><!--End widget-content-->
+          </div><!--End widget cart-item-->
+
+
+          <div class="cart-page-details">
+            <div class="white-box promotion">
+              <span>{{language['couponCode']}}</span>
+              <form class="promote-form" [formGroup]="couponForm" (submit)="applyCoupon()">
+                <input class="form-control" type="text" id="coupon-code" formControlName="coupon"
+                       placeholder="{{language['couponCode']}}">
+                <button class="custom-btn reversed" type="submit" id="coupon-submit"
+                        [disabled]="couponForm.invalid">{{language['apply']}}</button>
+              </form>
+            </div>
+
+            <div class="white-box">
+              <div class="cart-checkout">
+                <div class="cart-checkout-item">
+                  <span>{{language['subtotal']}}</span>
+                  <span class="cart-subtotal">{{cart.itemsTotal / 100 | currency: language['egyptianPound']}}</span>
+                </div>
+
+                <div class="cart-checkout-item" *ngFor="let adjustment of cart.adjustments">
+                  <span>{{adjustment.type}}</span>
+                  <span class="delivery-charge">{{adjustment.amount / 100 | currency: language['egyptianPound']}}</span>
+                </div>
+
+                <!-- <div class="cart-checkout-item">
+                    <span>promotion discount</span>
+                    <span class="promotion-disc">00.00 EGP</span>
+                </div> -->
+                <hr>
+                <div class="cart-checkout-item total-item">
+                  <span>{{language['total']}}</span>
+                  <span class="cart-total">{{cart.total / 100 | currency: language['egyptianPound']}}</span>
+                </div>
+                <hr>
+                <button class="custom-btn reversed" (click)="canOpenCheckout()">
+                  {{language['checkout']}}
+                </button>
+              </div>
+            </div><!--End white-box-->
+          </div><!--End cart-page-details-->
+        </div><!--End item-wrap-->
+      </div><!--End cart-content-->
+    </div><!--End Cart-page-->
+
+
+    <ng-template #showmessage>
+      <div class="empty-item">
+        <i class="fa fa-shopping-cart"></i>
+        <span class="help-text">{{language['emptyCart']}}</span>
+      </div>
+      <div class="text-center">
+        <a class="custom-btn reversed" routerLink="/collection">{{language['continueShopping']}}</a>
+      </div>
+    </ng-template>
+  </div><!--End Container-->
+</section>

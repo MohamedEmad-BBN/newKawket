@@ -1,0 +1,151 @@
+<div class="bkg-home">
+  <!--slider -->
+  <div class="sliderStyle">
+    <owl-carousel 
+      #slider
+      [carouselClasses]="['owl-theme']"
+      [items]="slides"
+      [options]="changeCarouselOptions({margin: 0})">
+      <div (click)="goToSliderLink(slide)"
+        class="item" *ngFor="let slide of slides">
+        <img [src]="slide.picture" alt="first slide" style="display: block; width: 100%;">
+      </div>
+    </owl-carousel>
+  </div>
+  <!--Feature products-->
+  <section class="feather_products"
+    *ngIf="featuredProducts?.length > 0">
+    <div class="container">
+      <div class="title mb-2">
+        <div class="row">
+          <div class="col-sm-3">
+            <h6>{{language['featuredProducts']}}</h6>
+          </div>
+          <div class="col-sm-9 text-right">
+            <a class="link--body mr-2"
+               [routerLink]="['/', language['LANGUAGE_CODE'], 'collection']"
+               [queryParams]="{featured: true, page: 1}">{{language['viewAll']}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- start owl-carousel for featured product-->
+    <div class="container container-fluid-md mb-lg-0 mb-5">
+      <owl-carousel
+        #owlFeaturedProducts
+        [carouselClasses]="['owl-theme', 'owl-flex']" [items]="featuredProducts"
+        [options]="changeCarouselOptions(featureOption)">
+        <div
+          *ngFor="let featuredProduct of featuredProducts;let first = first;let last = last;"
+          [ngClass]="{first: first, last: last}"
+          class="item">
+          <app-feature-product [product]="featuredProduct"></app-feature-product>
+        </div>
+      </owl-carousel>
+    </div>
+    <!-- END owl-carousel for featured product-->
+  </section>
+  <!--Best sellers products-->
+  <section class="best_sellers"
+    *ngIf="bestsellers?.length > 0">
+    <div class="container">
+      <div class="title mb-2">
+        <div class="row">
+        <div class="col-sm-3">
+          <h6>{{language['bestSellers']}}</h6>
+        </div>
+        <div class="col-sm-9 text-right">
+          <a class="link--body mr-2"
+             [routerLink]="['/', language['LANGUAGE_CODE'], 'collection']"
+             [queryParams]="{bestseller: true, page: 1}">{{language['viewAll']}}</a>
+        </div>
+        </div>
+      </div>
+    </div>
+    <!-- start owl-carousel for Best-sellers product-->
+    <div class="container container-fluid-md mb-lg-0 mb-5">
+      <owl-carousel
+        #owlBestsellersProducts
+        [carouselClasses]="['owl-theme', 'owl-flex']"
+        [items]="bestsellers"
+        [options]="changeCarouselOptions(bestsellersOption)">
+        <div
+          *ngFor="let bestseller of bestsellers;let first = first;let last = last;"
+          [ngClass]="{first: first, last: last}"
+          class="item">
+          <app-product [product]="bestseller"></app-product>
+        </div>
+      </owl-carousel>
+    </div>
+    <!-- start owl-carousel for Best-sellers product-->
+
+  </section>
+  <!--Banner-->
+  <section class="banner">
+    <div class="container">
+      <img [src]="homeBanner$ | async" alt="banner" class="img-fluid">
+    </div>
+  </section>
+  <!--Discount products-->
+  <section class="best_sellers" *ngIf="discounted?.length > 0">
+    <div class="container">
+      <div class="title mb-2">
+        <div class="row">
+          <div class="col-sm-3">
+            <h6>{{language['discount']}}</h6>
+          </div>
+          <div class="col-sm-9 text-right">
+            <a class="link--body mr-2"
+               [routerLink]="['/', language['LANGUAGE_CODE'], 'collection']"
+               [queryParams]="{discounted: true, page: 1}">{{language['viewAll']}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- start owl-carousel for discount product-->
+    <div class="container container-fluid-md mb-lg-0 mb-5">
+      <owl-carousel
+        #owlDiscountedItem
+        [carouselClasses]="['owl-theme', 'owl-flex']"
+        [items]="discounted" [options]="changeCarouselOptions(bestsellersOption)">
+        <div
+          *ngFor="let discountedItem of discounted;let first = first;let last = last;"
+          [ngClass]="{first: first, last: last}"
+          class="item">
+          <app-product [product]="discountedItem"></app-product>
+        </div>
+      </owl-carousel>
+    </div>
+  </section>
+  <!--New arrivals products-->
+  <section class="best_sellers" *ngIf="newArrivals?.length > 0">
+    <div class="container">
+      <div class="title mb-2">
+        <div class="row">
+          <div class="col-sm-3">
+            <h6>{{language['newArrivals']}}</h6>
+          </div>
+          <div class="col-sm-9 text-right">
+            <a class="link--body mr-2" [routerLink]="['/', language['LANGUAGE_CODE'], 'collection']" [queryParams]="{new: true, page: 1}">{{language['viewAll']}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- start owl-carousel for new-arrivals product-->
+    <div class="container container-fluid-md mb-lg-0 mb-5">
+      <owl-carousel
+        #owlNewItem
+        [carouselClasses]="['owl-theme', 'owl-flex']"
+        [items]="newArrivals"
+        [options]="changeCarouselOptions(bestsellersOption)">
+        <div
+        *ngFor="let item of newArrivals;let first = first;let last = last;"
+        [ngClass]="{first: first, last: last}"
+          class="item">
+          <app-product [product]="item"></app-product>
+        </div>
+      </owl-carousel>
+    </div>
+    <!-- END owl-carousel for new-arrivals product-->
+  </section>
+</div>
