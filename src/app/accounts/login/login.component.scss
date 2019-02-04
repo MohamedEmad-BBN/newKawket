@@ -1,3 +1,5 @@
+@import "../../../variables";
+
 .page-container{
   .container-fluid{
     padding: 0;
@@ -39,7 +41,7 @@
 .main-btn {
   border-radius: 30px; 
   background: transparent;
-  border: 2px solid #fcb416;
+  border: 2px solid $cart-color;
   color: #444;
    font-weight: 600;
    transition: all .4s ease ;
@@ -49,7 +51,7 @@
    text-decoration: none;text-align: center; display: flex; align-items: center; justify-content: center
 }
 .main-btn:enabled:hover{
-  background: #fcb416;
+  background: $cart-color;
   color: #fff !important;
   cursor: pointer;
 

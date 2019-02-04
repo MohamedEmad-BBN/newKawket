@@ -14,7 +14,7 @@
       content: '';
       width: 180px;
       height: 2px;
-      background-color: $orange-color;
+      background-color: $cart-color;
       position: absolute;
       left: -15px;
       margin: 15px 0;
@@ -103,7 +103,7 @@
           content: '';
           width: 3px;
           height: 40px;
-          background-color: $orange-color;
+          background-color: $cart-color;
           position: absolute;
           margin-top: 3px;
         }
@@ -146,9 +146,9 @@
       }
       .btn-submit
       {
-        background-color: $orange-color;
+        background-color: $cart-color;
         color: #fff;
-        border-color: $orange-color;
+        border-color: $cart-color;
         width: 80px;
         font-size: 18px;
         text-transform: capitalize;

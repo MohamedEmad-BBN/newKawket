@@ -103,7 +103,7 @@
           padding: 10px 0;
           font-weight: bold;
           button {
-            background: #fcb416;
+            background: $cart-color;
             color: #fff;
             border: 1px solid;
             padding: 6px 12px;
@@ -204,7 +204,7 @@
             line-height: 40px;
             cursor: pointer;
             background: transparent;
-            border: 1px solid #fcb416;
+            border: 1px solid $cart-color;
             color: #333;
             &:hover
             {

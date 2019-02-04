@@ -26,7 +26,7 @@
 
       .tab-container .nav-tabs .nav-item .nav-link.active {
         background-color: #ffffff;
-        color: $orange-color;
+        color: $cart-color;
         border: 0;
       }
 
@@ -42,7 +42,7 @@
       align-items: center;
 
       &__offer {
-        color: $orange-color;
+        color: $cart-color;
         font-size: 25px;
       }
 
@@ -113,10 +113,10 @@
       height: 100px;
       width: 100px;
       line-height: 100px;
-      border: 1px solid $orange-color;
+      border: 1px solid $cart-color;
       border-radius: 50%;
       text-align: center;
-      color: $orange-color;
+      color: $cart-color;
       font-weight: 600;
       font-size: 35px;
     }
@@ -136,7 +136,7 @@
       }
 
       min-width: 70px;
-      background: $orange-color;
+      background: $cart-color;
       font-weight: 600;
       border: none;
 
@@ -232,7 +232,7 @@
             // height: 50px;
             // background: $main-second-color;
             // display: inline-block;
-            // border: 1px solid $orange-color;
+            // border: 1px solid $cart-color;
             // border-radius: 50%;
             // text-align: center;
             // line-height: 50px;
@@ -252,14 +252,14 @@
                 cursor: pointer;
                 transition: all .5s ease-in-out;
                 background-color: $main-second-color;
-                color: $orange-color;
+                color: $cart-color;
                 [dir="rtl"] & {
                   margin-right: 0
                 }
                 &:hover {
-                  background-color: $orange-color;
+                  background-color: $cart-color;
                   color: $main-second-color;
-                  border: 1px solid $orange-color;
+                  border: 1px solid $cart-color;
                 }
                 &:nth-child(1) {
                   left: 35%;
@@ -268,19 +268,19 @@
                   left: 65%;
                 }
                 &.active {
-                  background-color: $orange-color;
+                  background-color: $cart-color;
                   color: $main-second-color;
-                  border: 1px solid $orange-color;
+                  border: 1px solid $cart-color;
                   &:hover {
-                    background-color: $orange-color;
+                    background-color: $cart-color;
                     color: $main-second-color;
-                    border: 1px solid $orange-color;
+                    border: 1px solid $cart-color;
                   }
                 }
               }
             }
             // &:hover {
-            //   background-color: $orange-color;
+            //   background-color: $cart-color;
             //   i {
             //     color: #ffffff
             //   }
@@ -338,9 +338,9 @@
           height: 43px;
           line-height: 34px;
           font-size: 19px;
-          border: 1px solid $orange-color;;
+          border: 1px solid $cart-color;;
           transition: all .5s ease-in-out;
-          color: $orange-color;
+          color: $cart-color;
           &::first-letter {
             text-transform: capitalize
           }
@@ -348,8 +348,8 @@
             outline: 0
           }
           &:enabled:hover {
-            background-color: $orange-color;
-            border: 1px solid $orange-color;
+            background-color: $cart-color;
+            border: 1px solid $cart-color;
             color: #ffffff;
             cursor: pointer;
           }
@@ -453,7 +453,7 @@
 }
 
 .review-user-name {
-  color: $orange-color;
+  color: $cart-color;
 }
 
 .review-title, .review-user-name {
@@ -480,11 +480,11 @@
   }
 
   .gallery .carousel-control-prev-icon {
-    background-color: $orange-color;
+    background-color: $cart-color;
   }
 
   .gallery .carousel-control-next-icon {
-    background-color: $orange-color;
+    background-color: $cart-color;
   }
 
   .form-row > .col, .form-row > [class*="col-"] {

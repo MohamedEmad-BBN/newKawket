@@ -13,7 +13,7 @@
       float: right;
       width: 36px;
       height: 36px;
-      border: 2px solid #fcb416;
+      border: 2px solid $cart-color;
       border-radius: 50%;
       cursor: pointer;
       background: #1a1a1a;
@@ -21,7 +21,7 @@
         width: 28px;
         padding: 6px;
         border-radius: 50%;
-        background: #fcb416;
+        background: $cart-color;
       }
     }
     .fa-home {
@@ -67,7 +67,7 @@
             transition: all .3s ease-in-out;
             &:hover,
             &:focus{
-              color: #fcb416;
+              color: $cart-color;
             }
           }
         }
@@ -105,7 +105,7 @@
           height: 40px;
           line-height: 40px;
           text-align: center;
-          background-color: #fcb416;
+          background-color: $cart-color;
           color: #000;
           border-radius: 50%;
           font-size: 20px;

@@ -131,7 +131,7 @@ a:focus {
 }
 a:hover,
 a:focus{
-  color: #fcb416!important;
+  color: $cart-color!important;
 }
 /* forms
 ==============================*/
@@ -148,7 +148,7 @@ a:focus{
   border-radius: 50px;
   transition: all .3s ease-in-out;
   &:focus{
-    border-color: #fcb416!important;
+    border-color: $cart-color!important;
     box-shadow: none;
     outline: none;
   }
@@ -266,7 +266,7 @@ ul.social-list{
       transition: all 0.35s cubic-bezier(0.31, -0.105, 0.43, 1.59);
       &:hover{
         color: #fff!important;
-        background-color: #fcb416;
+        background-color: $cart-color;
       }
     }
   }
@@ -283,7 +283,7 @@ ul.social-list{
   }
 
   .active {
-    background-color: $orange-color;
+    background-color: $cart-color;
   }
 }
 
@@ -344,7 +344,7 @@ a:hover {
 // start styling for images slider in the product details params
 .gallery {
   .carousel-control-prev-icon {
-    background-color: $orange-color;;
+    background-color: $cart-color;;
     width: 53px;
     border-radius: 0 20px 20px 0;
     height: 35px;
@@ -358,7 +358,7 @@ a:hover {
   }
 
   .carousel-control-next-icon {
-    background-color: $orange-color;;
+    background-color: $cart-color;;
     width: 53px;
     border-radius: 20px 0 0 20px;
     height: 35px;
@@ -488,7 +488,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 span.active:after {
-  color: $orange-color;
+  color: $cart-color;
 }
 
 span:focus {
@@ -562,7 +562,7 @@ span:focus {
             width: 70%;
 
             &:focus {
-              border-color: $orange-color;;
+              border-color: $cart-color;;
             }
           }
           &.custom-checkbox {
@@ -598,7 +598,7 @@ span:focus {
             }
             .form-control {
               &:focus ~ span {
-                color: $orange-color;;
+                color: $cart-color;;
               }
             }
           }
@@ -747,8 +747,8 @@ span:focus {
 
   .custom-btn {
     background-color: transparent;
-    color: $orange-color;;
-    border: 1px solid $orange-color;;
+    color: $cart-color;;
+    border: 1px solid $cart-color;;
     padding: 10px 20px;
     border-radius: 50px;
     text-transform: capitalize;
@@ -756,7 +756,7 @@ span:focus {
     transition: all .3s ease-in-out;
 
     &:hover {
-      background-color: $orange-color;;
+      background-color: $cart-color;;
       color: #fff;
     }
 
@@ -867,7 +867,7 @@ span:focus {
       line-height: 40px;
       text-align: center;
       background-color: transparent;
-      color: $orange-color;
+      color: $cart-color;
       margin-left: 3px;
       font-weight: bold;
       border-radius: 10px;
@@ -878,14 +878,14 @@ span:focus {
 
       &:hover {
         background-color: #e9ecef;
-        color: $orange-color;
+        color: $cart-color;
       }
     }
 
     &.active {
       .page-link {
-        background-color: $orange-color;
-        border-color: $orange-color;
+        background-color: $cart-color;
+        border-color: $cart-color;
         color: $main-second-color;
 
         &:hover {
@@ -907,7 +907,7 @@ span:focus {
           position: absolute;
           width: 100%;
           height: 100%;
-          color: $orange-color;
+          color: $cart-color;
           font-size: 20px;
         }
 

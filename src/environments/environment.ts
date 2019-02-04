@@ -8,7 +8,7 @@ export const environment = {
   maestroUrl: 'http://register.zvendo.online/api/v3/',
   languageBaseUrl: 'https://register.zvendo.com/translations/',
   defaultImage: 'https://svgshare.com/i/8Ax.svg',
-  localStore: 'testbestoffer.zvendo.online'
+  localStore: 'kawket5.zvendo.online'
 };
 
 /*

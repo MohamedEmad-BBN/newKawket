@@ -160,7 +160,7 @@
           line-height: 30px;
           text-align: center;
           border-radius: 100%;
-          background-color: $orange-color;
+          background-color: $cart-color;
           color: #fff!important;
           padding: 0;
           border: 0;
@@ -427,8 +427,8 @@
     &:focus,
     &:active{
       text-decoration: none;
-      background-color: $orange-color;
-      border-color: $orange-color;
+      background-color: $cart-color;
+      border-color: $cart-color;
       outline: none;
       box-shadow: none;
     }
@@ -436,7 +436,7 @@
       padding: 7px 15px;
     }
     &.reversed{
-      background-color: $orange-color;
+      background-color: $cart-color;
       border: none;
       &:hover,
       &:focus{
@@ -455,7 +455,7 @@
     border-radius: 10px;
     text-align: center;
     padding: 20px 10px;
-    border: 1px solid $orange-color;
+    border: 1px solid $cart-color;
     i{
       display: block;
       font-size: 130px;

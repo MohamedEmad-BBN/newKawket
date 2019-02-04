@@ -16,7 +16,7 @@
       border-radius: 15px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background-color: $orange-color;
+      background-color: $cart-color;
       cursor: pointer;
     }
 
@@ -74,7 +74,7 @@
             line-height: 40px;
             background-color: #fff;
             color: $cart-color;
-            border: 2px solid $orange-color;
+            border: 2px solid $cart-color;
             font-weight: bold;
             position: absolute;
             border-radius: 50%;
@@ -89,7 +89,7 @@
             transition: all .3s ease-in-out;
             &:hover,
             &:focus{
-              background-color: $orange-color;
+              background-color: $cart-color;
               color: #fff;
             }
             [dir=rtl] &
@@ -121,7 +121,7 @@
   //style quick-view
   .custom-btn
     {
-      color: $orange-color;
+      color: $cart-color;
       font-size: 16px;
       border: 1px solid;
       border-radius: 10px;
@@ -134,8 +134,8 @@
       &:enabled:hover
       {
         color: #fff;
-        border: 1px solid $orange-color;
-        background-color: $orange-color;
+        border: 1px solid $cart-color;
+        background-color: $cart-color;
         cursor: pointer;
       }
       &:disabled {
@@ -145,7 +145,7 @@
     }
   .icon-btn
   {
-    color: $orange-color;
+    color: $cart-color;
     cursor: pointer;
     background: #fff;
     border: none;
@@ -159,16 +159,16 @@
       transition: all .4s ease-in-out;
       &:hover, &.active
       {
-        background-color: $orange-color;
+        background-color: $cart-color;
         color: #fff;
-        border: 1px solid $orange-color;
+        border: 1px solid $cart-color;
         outline: none;
       }
     }
     &.active
     {
-      background-color: $orange-color;
-      border: 1px solid $orange-color;
+      background-color: $cart-color;
+      border: 1px solid $cart-color;
     }
   }
   .collection__spinner {
@@ -190,7 +190,7 @@
       width: 11px;
       height: 11px;
       border-radius: 50%;
-      background: $orange-color;
+      background: $cart-color;
       animation-timing-function: cubic-bezier(0, 1, 1, 0);
     }
     .lds-ellipsis div:nth-child(1) {

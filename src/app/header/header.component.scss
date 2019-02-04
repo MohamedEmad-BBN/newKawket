@@ -71,7 +71,7 @@
         line-height: 20px;
         text-align: center;
         background-color: #fff;
-        color: #fcb416;
+        color: $cart-color;
         border-radius: 10px;
         font-weight: 700;
         font-family: cursive;
@@ -118,7 +118,7 @@
         &:hover,
         &:focus {
           i {
-            color: #fbc900
+            color: $cart-color;
           }
           > .dropdown-menu {
             opacity: 1;
@@ -133,7 +133,7 @@
       position: relative;
       top: 0;
       .text-yellow {
-        color: #fcb416;
+        color: $cart-color;
       }
       .navbar-brand {
         padding: 30px 0 20px;
@@ -187,13 +187,13 @@
               }
             }
             .nav-link > span{
-              color: #0099ff;
+              color: $cart-color;
             }
           }
           &.active,
           &.active .nav-link,
           &.nav-link:hover {
-            color: #007dbe;
+            color: $cart-color;
           }
         }
       }
@@ -208,7 +208,7 @@
       height: 40px;
       line-height: 40px;
       border: 1px solid #333;
-      border-radius: 30px;
+      border-radius: 10px;
       font-size: 16px;
       font-weight: 600;
       padding: 0;
@@ -219,9 +219,9 @@
     .cart-btn:hover,
     .cart-btn:focus,
     .cart-btn:active {
-      background-color: #0099ff;
+      background-color: $cart-color;
       color: #fff;
-      border: 1px solid #0099ff;
+      border: 1px solid $cart-color;
     }
     .cart-btn > span {
       padding-right: 30px;
@@ -230,8 +230,8 @@
       width: 34px;
       height: 34px;
       line-height: 34px;
-      background-color: #fcb416;
-      color: #fff;
+      background-color: transparent;
+      color: $cart-color;
       border-radius: 50%;
       position: absolute;
       top: 2px;
@@ -265,14 +265,14 @@
             i{
               float: right;
               margin-top: 8px;
-              color: #fcb416;
+              color: $cart-color;
               font-size: 14px;
               [dir="rtl"] &{
                 float: left;
               }
             }
             &:hover{
-              background-color: #fcb416;
+              background-color: $cart-color;
               color: #fff!important;
               i{
                 color: #fff;
@@ -324,7 +324,7 @@
           line-height: 25px;
           text-align: center;
           border-radius: 100%;
-          background-color: #0099ff;
+          background-color: $cart-color;
           color: white;
           font-size: 12px;
           z-index: 2;
@@ -353,9 +353,9 @@
         }
         .navbar-toggler{
           display: inline-block;
-          border-color: #fcb416;
+          border-color: $cart-color;
           padding: 3px 7px;
-          color: #fcb416;
+          color: $cart-color;
           border-radius: 4px;
         }
         .navbar{

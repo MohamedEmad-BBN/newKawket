@@ -166,7 +166,7 @@
             right: 10px;
             top: 50%;
             transform: translateY(-50%);
-            color: $orange-color;
+            color: $cart-color;
             font-size: 24px;
             font-weight: bold;
             pointer-events: none;
@@ -223,7 +223,7 @@
 //     }
 //   }
 //   .page-item.active .page-link {
-//     border: 1px solid $orange-color;
+//     border: 1px solid $cart-color;
 //   }
 
 // }
@@ -305,8 +305,8 @@
 
 
 // /deep/ .page-item.active a.page-link {
-//   background-color: $orange-color;
-//   border-color: $orange-color;
+//   background-color: $cart-color;
+//   border-color: $cart-color;
 // }
 
 // /deep/ .page-item:not(.active) a.page-link {
@@ -335,7 +335,7 @@
 
     a {
       font-weight: 600;
-      color: #fcb416;
+      color: $cart-color;
       &:hover {
         text-decoration: none;
       }

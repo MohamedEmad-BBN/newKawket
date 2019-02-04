@@ -6,8 +6,8 @@
     width: 70%;
     margin: auto;
     .form-control {
-      border: 1px solid #fcb416;
-      border-radius: 30px;
+      border: 1px solid $cart-color;
+      border-radius: 10px;
       height: 40px;
     }
     .icon-btn {
@@ -21,13 +21,11 @@
       padding: 0;
       border: 0;
       border-radius: 100%;
-      color: #fff;
-      background-color: #fcb416;
+      color: $cart-color;
       cursor: pointer;
       transition: all .3s ease-in-out;
-      &:hover{
-        background-color: #333333;
-      }
+      background: transparent;
+
       [dir="rtl"] &{
         left: 3px;
         right: auto;
@@ -39,7 +37,7 @@
     top: 42px;
     width: 100%;
     padding: 0;
-    border: 1px solid #fcb416;
+    border: 1px solid $cart-color;
     border-radius: 12px;
     list-style-type: none;
     background: #fff;
