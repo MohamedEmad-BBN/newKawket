@@ -65,14 +65,7 @@
                 <!--<i class="fa fa-star-o" aria-hidden="true" *ngFor="let star of emptyStar"></i>-->
               </div>
             </div>
-            <div class="interact">
-              <span *ngIf="wishListFeature$ | async" class="interact__icon interact__icon--mr" (click)="toggleWishList()">
-                <i class="fa fa-heart" [ngClass]="{'active': fav | async}" aria-hidden="true"></i>
-              </span>
-              <span *ngIf="compareFeature$ | async" class="interact__icon interact__icon--mr" (click)="toggleCompare()">
-                <i class="fa fa-random" [ngClass]="{'active': compare | async}" aria-hidden="true"></i>
-              </span>
-            </div>
+
           </div>
           
           <hr *ngIf="product.translations[language['LANGUAGE_CODE']].short_description">
@@ -124,7 +117,7 @@
             </div>
             <!--price-->
 
-          <div class="col-sm-3 col-3 my-3">
+          <div class="col-sm-6 col-6 my-3">
             <input
               title="quantity"
               class="form-control"
@@ -138,12 +131,32 @@
           </div>
 
           <hr>
-          <div class="cart-submit">
-              <button class="btn--card" (click)="addToCart()"  [disabled]="!canAddToCart" role="button" aria-label="add to cart">
-                {{canAddToCart ? language['addToCart'] : language['outOfStock']}}
-              </button>
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="cart-submit">
+                <button class="btn--card" (click)="addToCart()"  [disabled]="!canAddToCart" role="button" aria-label="add to cart">
+                  {{canAddToCart ? language['addToCart'] : language['outOfStock']}}
+                </button>
+              </div>
             </div>
-         
+
+            <div class="col-md-6">
+              <div class="interact">
+              <span *ngIf="wishListFeature$ | async" class="interact__icon interact__icon--mr" (click)="toggleWishList()">
+                <i class="fa fa-heart" [ngClass]="{'active': fav | async}" aria-hidden="true"></i>
+              </span>
+                <span *ngIf="compareFeature$ | async" class="interact__icon interact__icon--mr" (click)="toggleCompare()">
+                <i class="fa fa-random" [ngClass]="{'active': compare | async}" aria-hidden="true"></i>
+              </span>
+              </div>
+            </div>
+
+
+          </div>
+
+
          
 
 
