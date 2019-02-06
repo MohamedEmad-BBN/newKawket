@@ -110,8 +110,12 @@ $background-color: $input-background-color;
       transition: color .3s ease-in-out,
       background .3s ease-in-out;
 
+      @media(max-width:767px){
+        min-width: 80px;
+      }
+
       &--addCart{
-        border-radius: 10px;
+        border-radius: 30px;
         @media(max-width:767px){
           display: none;
         }
