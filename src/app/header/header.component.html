@@ -2,55 +2,57 @@
 <header class="header" [ngClass]="{scrolled: isScrolled}">
   <!-- Top header -->
   <div class="top-header">
-    <div class="container d-flex justify-content-between">
-      <!-- Language -->
-      <div class="dropdown language-dropdown" *ngIf="currentLocale">
-        <a class="nav-item">
-          <i class="fa fa-language"></i>
-          <span [ngStyle]="{direction: currentLocale.dir}">{{currentLocale.name}}</span>
-        </a>
-        <ul class="dropdown-menu">
-          <li *ngFor="let availableLanguage of availableLanguages" [ngStyle]="{direction: availableLanguage.dir}">
-            <a [ngClass]="{activated: availableLanguage.code == language['LANGUAGE_CODE']}" [queryParams]="queryParams"
-              [routerLink]="redirectUrls[availableLanguage.code]">
-              {{availableLanguage.name}}
-            </a>
-          </li>
-        </ul>
-      </div>
-      <!-- Top headers links -->
-      <nav>
-        <ul class="top-header-links">
-          <li class="top-header-item" *ngIf="wishListFeature$ | async">
-            <a routerLink="/{{language['LANGUAGE_CODE']}}/wish-list">{{language['wishList']}}</a>
-            <span>{{wishListCounter$ | async}}</span>
-          </li>
-          <li class="top-header-item" *ngIf="compareFeature$ | async">
-            <a routerLink="/{{language['LANGUAGE_CODE']}}/compare">{{language['compare']}}</a>
-            <span>{{compareCounter$ | async}}</span>
-          </li>
-          <ng-template #login>
-            <li class="top-header-item" id="login">
-              <a [routerLink]="['/', language['LANGUAGE_CODE'], 'accounts', 'login']">
-                {{language['login']}}</a>
-              <span>
+    <div class="container">
+      <div class="d-flex justify-content-between">
+        <div class="dropdown language-dropdown" *ngIf="currentLocale">
+          <a class="nav-item">
+            <i class="fa fa-language"></i>
+            <span [ngStyle]="{direction: currentLocale.dir}">{{currentLocale.name}}</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li *ngFor="let availableLanguage of availableLanguages" [ngStyle]="{direction: availableLanguage.dir}">
+              <a [ngClass]="{activated: availableLanguage.code == language['LANGUAGE_CODE']}" [queryParams]="queryParams"
+                 [routerLink]="redirectUrls[availableLanguage.code]">
+                {{availableLanguage.name}}
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- Top headers links -->
+        <nav>
+          <ul class="top-header-links">
+            <li class="top-header-item" *ngIf="wishListFeature$ | async">
+              <a routerLink="/{{language['LANGUAGE_CODE']}}/wish-list">{{language['wishList']}}</a>
+              <span>{{wishListCounter$ | async}}</span>
+            </li>
+            <li class="top-header-item" *ngIf="compareFeature$ | async">
+              <a routerLink="/{{language['LANGUAGE_CODE']}}/compare">{{language['compare']}}</a>
+              <span>{{compareCounter$ | async}}</span>
+            </li>
+            <ng-template #login>
+              <li class="top-header-item" id="login">
+                <a [routerLink]="['/', language['LANGUAGE_CODE'], 'accounts', 'login']">
+                  {{language['login']}}</a>
+                <span>
                 <i class="fa fa-user" aria-hidden="true"></i>
               </span>
               </li>
-          </ng-template>
-          <li class="top-header-item" *ngIf="logged$ | async; else login;">
-            <a [routerLink]="['/', language['LANGUAGE_CODE'], 'profile', 'dashboard']">
-              {{userName | async}}</a>
-            <span><i class="fa fa-user" aria-hidden="true"></i></span>
-          </li>
-          <li class="top-header-item" *ngIf="logged$ | async">
-            <a [routerLink]="['/accounts/login']" routerLinkActive="router-link-active" (click)="logout()">
-              {{language['logout']}}
-            </a>
-            <span><i class="fa fa-sign-out" aria-hidden="true"></i></span>
-          </li>
-        </ul>
-      </nav>
+            </ng-template>
+            <li class="top-header-item" *ngIf="logged$ | async; else login;">
+              <a [routerLink]="['/', language['LANGUAGE_CODE'], 'profile', 'dashboard']">
+                {{userName | async}}</a>
+              <span><i class="fa fa-user" aria-hidden="true"></i></span>
+            </li>
+            <li class="top-header-item" *ngIf="logged$ | async">
+              <a [routerLink]="['/accounts/login']" routerLinkActive="router-link-active" (click)="logout()">
+                {{language['logout']}}
+              </a>
+              <span><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- Language -->
     </div>
   </div>
   <div class="main-header" id="header--custom">

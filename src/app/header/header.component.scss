@@ -139,6 +139,12 @@
         margin: 0;
         width: 120px;
         transition: all .4s ease-in-out;
+
+        img{
+          max-width: 100%;
+        }
+
+
       }
       .navbar-toggler{
         display: none;
@@ -368,7 +374,7 @@
         }
         .navbar-brand{
           padding: 10px 0;
-          width: 170px;
+          width: 80px;
         }
       }
     }
