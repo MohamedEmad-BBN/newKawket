@@ -17,7 +17,7 @@
     *ngIf="featuredProducts?.length > 0">
     <div class="container">
       <div class="title mb-2">
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col-sm-3 col-6 ">
             <h6>{{language['featuredProducts']}}</h6>
           </div>
@@ -50,7 +50,7 @@
     *ngIf="bestsellers?.length > 0">
     <div class="container">
       <div class="title mb-2">
-        <div class="row">
+        <div class="row align-items-center">
         <div class="col-sm-3 col-6">
           <h6>{{language['bestSellers']}}</h6>
         </div>
@@ -90,7 +90,7 @@
   <section class="best_sellers" *ngIf="discounted?.length > 0">
     <div class="container">
       <div class="title mb-2">
-        <div class="row">
+        <div class="row  align-items-center">
           <div class="col-sm-3 col-6">
             <h6>{{language['discount']}}</h6>
           </div>
@@ -121,11 +121,11 @@
   <section class="best_sellers" *ngIf="newArrivals?.length > 0">
     <div class="container">
       <div class="title mb-2">
-        <div class="row">
-          <div class="col-sm-3">
+        <div class="row align-items-center">
+          <div class="col-sm-3 col-6">
             <h6>{{language['newArrivals']}}</h6>
           </div>
-          <div class="col-sm-9 text-right">
+          <div class="col-sm-9 col-6 text-right">
             <a class="link--body mr-2" [routerLink]="['/', language['LANGUAGE_CODE'], 'collection']" [queryParams]="{new: true, page: 1}">{{language['viewAll']}}</a>
           </div>
         </div>
