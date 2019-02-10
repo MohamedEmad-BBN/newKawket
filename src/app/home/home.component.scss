@@ -31,6 +31,10 @@
     .title{
       a{
         font-size: 19px;
+
+        @media(max-width: 450px){
+          font-size: 18px;
+        }
       }
     }
   }
@@ -62,6 +66,12 @@
     }
     h6 {
       font-size: 21px;
+      @media(max-width: 450px){
+        font-size: 13px !important;
+        font-weight: bold;
+        margin: 0;
+      }
+
       a {
         text-decoration: none;
         float: right;
@@ -72,6 +82,9 @@
         [dir=rtl] & {
           float: left;
         }
+
+
+
       }
     }
   }
@@ -84,6 +97,18 @@
     .feather_products {
       h6 {
         font-size: 18px !important
+      }
+    }
+
+
+  }
+
+  @media(max-width: 450px){
+    .feather_products {
+      h6 {
+        font-size: 13px !important;
+        font-weight: bold;
+        margin: 0;
       }
     }
   }
