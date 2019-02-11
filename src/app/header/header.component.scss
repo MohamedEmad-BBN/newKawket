@@ -227,6 +227,9 @@
       background-color: $cart-color;
       color: #fff;
       border: 1px solid $cart-color;
+      i{
+        color:#FFF;
+      }
     }
     .cart-btn > span {
       padding-right: 30px;

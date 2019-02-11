@@ -60,7 +60,6 @@
       padding: 0;
       margin: 0;
       font-weight: 600;
-      margin-left: 42px;
       list-style: none;
       margin-bottom: 50px;
 
@@ -68,23 +67,16 @@
       &__title {
         font-size: 22px;
         text-align: left;
-        margin-left: -42px;
         text-transform: uppercase;
 
         [dir=rtl] & {
           text-align: right;
         }
 
-        [dir=rtl] & {
-          margin-left: auto;
-          margin-right: -42px;
-        }
+
       }
 
-      [dir=rtl] & {
-        margin-left: auto;
-        margin-right: 42px;
-      }
+
 
       &__list {
         text-transform: uppercase;
@@ -240,9 +232,7 @@
         .infoDescription--list {
           overflow: hidden; text-overflow: ellipsis;
 
-          [dir=rtl] & {
-            padding-right: 10px
-          }
+         
           > li {
             list-style: none;
             text-transform: uppercase;
